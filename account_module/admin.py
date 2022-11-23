@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
+from .models import User, VerificationCode
+
 
 UserAdmin.fieldsets = (
         (None, {"fields": ("username", "password")}),
@@ -27,3 +28,9 @@ UserAdmin.list_display = ('username', 'country_code', 'phone_number',
                           'is_staff', 'is_active')
 
 admin.site.register(User, UserAdmin)
+
+
+class VerificationCodeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'code', 'expire_time')
+
+admin.site.register(VerificationCode, VerificationCodeAdmin)
