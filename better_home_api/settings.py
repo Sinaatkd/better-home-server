@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # our applications
+    'base_model_module',
     'account_module',
 ]
 
