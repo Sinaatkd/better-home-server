@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'base_model_module',
     'account_module',
     'api_v1_module',
+    
+    # installed packages
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'assets'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
