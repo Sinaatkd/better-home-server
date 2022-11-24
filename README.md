@@ -21,3 +21,7 @@ Online application for selling and buying houses
 >>> print(get_random_secret_key())
 ```
 3. and copy it
+
+## create an admin user
+1. run command `python manage.py create_superuser <username> <password> <phone_number>`
+2. now you can move to /admin and login with created user
