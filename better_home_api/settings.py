@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # our applications
     'base_model_module',
     'account_module',
+    'api_v1_module',
 ]
 
 MIDDLEWARE = [
