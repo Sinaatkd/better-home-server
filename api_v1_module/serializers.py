@@ -16,7 +16,7 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
         read_only_fields = ('user',)
     
     def create(self, validated_data):
-        VerificationCode.objects.create_verification_code(user=self.user)
+        verification_code = VerificationCode.objects.create_verification_code(user=self.user)
         # TODO: send sms
     
     def validate_phone_number(self, phone_number):
