@@ -12,7 +12,7 @@ class SendVerificationCodeTest(TestCase):
     def test_correct_request(self):
         test_phone_number = 9100000000
         payload = {'phone_number': test_phone_number}
-        res = client.post(reverse('SendVerificationCodeAPI'), data=payload)
+        res = client.post(reverse('send_verification_code_api'), data=payload)
         serializer = SendVerificationCodeSerializer(data=payload)
         if serializer.is_valid():
             serializer.save()
@@ -21,6 +21,6 @@ class SendVerificationCodeTest(TestCase):
     
     def test_incorrect_request(self):
         test_phone_number = 9100000000
-        res = client.post(reverse('SendVerificationCodeAPI'))
+        res = client.post(reverse('send_verification_code_api'))
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
     
