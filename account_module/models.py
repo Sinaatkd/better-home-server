@@ -11,7 +11,8 @@ from .managers import VerificationCodeManager, UserManager
 class User(AbstractUser):
     country_code = models.IntegerField(default=98, verbose_name='کد کشور')
     phone_number = models.BigIntegerField(verbose_name='شماره تلفن', unique=True)
-    is_phone_number_verified = models.BooleanField(default=False, verbose_name='شماره تلفن تایید شده/نشده')
+    is_phone_number_verified = models.BooleanField(default=False, verbose_name='شماره تلفن تایید شده / نشده')
+    is_consultant = models.BooleanField(default=False, verbose_name='وضعیت مشاور بودن / نبودن')
     
     objects = UserManager()
     
