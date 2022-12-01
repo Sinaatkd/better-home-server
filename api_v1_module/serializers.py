@@ -24,6 +24,8 @@ class SendVerificationCodeSerializer(serializers.Serializer):
 
     def validate_phone_number(self, phone_number):
         user = User.objects.get_or_create(phone_number=phone_number)
+        if not user.is_active:
+            raise serializers.ValidationError('حساب کاربری متعلق به شماره تلفن وارد شده مسدود شده است')
         self.user = user
         return phone_number
 
@@ -37,7 +39,9 @@ class SignInSerializer(serializers.Serializer):
     def validate_phone_number(self, phone_number):
         user = User.objects.filter(phone_number=phone_number).first()
         if user is not None:
-            return phone_number
+            if user.is_active:
+                return phone_number
+            raise serializers.ValidationError('حساب کاربری متعلق به شماره تلفن وارد شده مسدود شده است')
         raise serializers.ValidationError('کاربری با شماره تلفن وارد شده یافت نشد')
     
     def validate_verification_code(self, verification_code):
