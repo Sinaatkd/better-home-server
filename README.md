@@ -11,6 +11,7 @@ Online application for selling and buying houses
 6. connect to virtualenv using `.\venv\Scripts\activate`
 7. from the project folder, install packages using `pip install -r requirements.txt`
 8. apply django models to database using `python manage.py migrate`
+8. copy all files from your static folders into the STATIC_ROOT directory. using `python manage.py collectstatic`
 9. now environment is ready. run it by `python manage.py runserver`
 
 ## generate secret key
