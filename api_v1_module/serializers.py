@@ -52,5 +52,7 @@ class SignInSerializer(serializers.Serializer):
         phone_number = validated_data.get('phone_number')
         user = User.objects.filter(phone_number=phone_number).first()
         token = generate_token_for_user(user)
+        user.is_phone_number_verified = True
+        user.save()
         validated_data['token'] = token
         return validated_data
