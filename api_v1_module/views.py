@@ -2,6 +2,7 @@ from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 from .serializers import (SendVerificationCodeSerializer, SignInSerializer,
                           TestConnectionSerializer, UserSerializer)
@@ -9,12 +10,14 @@ from .serializers import (SendVerificationCodeSerializer, SignInSerializer,
 
 
 class TestConnectionAPI(GenericAPIView, RetrieveModelMixin):
+    permission_classes = [AllowAny]
     serializer_class = TestConnectionSerializer
 
     def get(self, request):
         return Response({'message': 'connected', 'status': 'ok'}, status.HTTP_200_OK)
 
 class SendVerificationCodeAPI(GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = SendVerificationCodeSerializer
 
     def post(self, request):
@@ -26,6 +29,7 @@ class SendVerificationCodeAPI(GenericAPIView):
 
 
 class SignInAPI(GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = SignInSerializer
 
     def post(self, request):
