@@ -64,3 +64,9 @@ class SignInSerializer(serializers.Serializer):
         user.save()
         validated_data['token'] = token
         return validated_data
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('last_login', 'password', 'is_superuser', 'is_staff', 'date_joined', 'groups', 'user_permissions')

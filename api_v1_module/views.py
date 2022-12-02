@@ -1,10 +1,10 @@
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework import status
 
 from .serializers import (SendVerificationCodeSerializer, SignInSerializer,
-                          TestConnectionSerializer,)
+                          TestConnectionSerializer, UserSerializer)
 
 
 
@@ -34,3 +34,10 @@ class SignInAPI(GenericAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetAuthenticatedUserAPI(RetrieveAPIView):
+    serializer_class = UserSerializer
+    
+    def get_object(self):
+        return self.request.user
