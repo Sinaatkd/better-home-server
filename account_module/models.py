@@ -1,6 +1,5 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
-from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -23,7 +22,7 @@ class User(AbstractUser):
 class VerificationCode(BaseModel):
     code = models.CharField(max_length=4,verbose_name='کد تایید')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    expire_time = models.DateTimeField(default=timezone.now() + timedelta(minutes=2), verbose_name='تاریخ انقضا') # code expire after 2 minutes
+    expire_time = models.DateTimeField(default=datetime.now() + timedelta(minutes=2), verbose_name='تاریخ انقضا') # code expire after 2 minutes
     
     objects = VerificationCodeManager()
     

@@ -1,7 +1,8 @@
 from random import randint
 
+from datetime import timedelta, datetime
+
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -25,4 +26,4 @@ class VerificationCodeManager(models.Manager):
         return self.get_queryset().create(user=user, code=code)
     
     def check_code_has_expired(self, verification_code, user):
-        return not self.get_queryset().filter(code=verification_code, user=user, expire_time__gt=timezone.now()).exists()
+        return not self.get_queryset().filter(code=verification_code, user=user, expire_time__gt=datetime.now()).exists()
