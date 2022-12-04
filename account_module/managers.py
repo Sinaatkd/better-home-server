@@ -23,7 +23,8 @@ class UserManager(BaseUserManager):
 class VerificationCodeManager(models.Manager):
     def create_verification_code(self, user):
         code = str(randint(0, 9999)).zfill(4)
-        return self.get_queryset().create(user=user, code=code)
+        expire_time = datetime.now() + timedelta(minutes=2)
+        return self.get_queryset().create(user=user, code=code, expire_time=expire_time)
     
     def check_code_has_expired(self, verification_code, user):
         return not self.get_queryset().filter(code=verification_code, user=user, expire_time__gt=datetime.now()).exists()
