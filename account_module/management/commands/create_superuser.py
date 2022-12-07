@@ -16,7 +16,7 @@ class Command(BaseCommand):
         username = kwargs['username'][0]
         password = kwargs['password'][0]
         phone_number = kwargs['phone_number'][0]
-        user = User(username=username, phone_number=phone_number)
+        user = User(username=username, phone_number=phone_number, is_staff=True, is_superuser=True)
         user.set_password(password)
         try:
             user.save()
