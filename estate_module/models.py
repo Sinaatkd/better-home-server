@@ -1,7 +1,12 @@
+from datetime import datetime, timedelta
+
+
 import static_variables
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 from base_model_module.models import BaseModel
 from .managers import EstateManager
@@ -57,10 +62,17 @@ class Estate(BaseModel):
     price = models.BigIntegerField(verbose_name='قیمت')
     deposit = models.BigIntegerField(verbose_name='ودیعه', null=True, blank=True)
     ad_type = models.CharField(choices=static_variables.AD_TYPE_CHOICES, max_length=10, verbose_name='نوع آگهی')
-    expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True)
+    expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True, null=True)
     
     objects = EstateManager()
 
     class Meta:
         verbose_name = 'ملک'
         verbose_name_plural = 'ملک ها'
+
+
+@receiver(pre_save, sender=Estate)
+def set_estate_expire_date(sender, instance, *args, **kwargs):
+    # set expire_date when instance created
+    if instance.id is None:
+        instance.expire_date = datetime.now() + timedelta(days=30)
