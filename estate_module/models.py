@@ -69,6 +69,8 @@ class Estate(BaseModel):
     deposit = models.BigIntegerField(verbose_name='ودیعه', null=True, blank=True)
     ad_type = models.CharField(choices=static_variables.AD_TYPE_CHOICES, max_length=10, verbose_name='نوع آگهی')
     expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True, null=True)
+    is_ladder = models.BooleanField(default=False, verbose_name='نردبون')
+    build_date = models.PositiveIntegerField(verbose_name='سال ساخت', null=True, blank=True)
     
     objects = EstateManager()
 
