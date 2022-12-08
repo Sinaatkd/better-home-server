@@ -55,4 +55,4 @@ class GetEstatesAPI(ListAPIView):
     filterset_class = EstateFilter
     queryset = Estate.objects.active_estates()
     ordering_fields = ['is_special', 'last_updated_time', 'is_ladder']
-    search_fields = ['title']
+    search_fields = ['title', 'address']
