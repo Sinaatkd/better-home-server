@@ -54,6 +54,7 @@ class EstateImage(BaseModel):
 
 class Estate(BaseModel):
     title = models.CharField(verbose_name='عنوان', max_length=300)
+    description = models.TextField(verbose_name='توضیحات', null=True, blank=True)
     consultant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='مشاور')
     address = models.TextField(verbose_name='آدرس')
     latitude = models.FloatField(verbose_name='طول جغرافیایی')
