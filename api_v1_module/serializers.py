@@ -35,11 +35,19 @@ class SendVerificationCodeSerializer(serializers.Serializer):
         return phone_number
 
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('last_login', 'password', 'is_superuser', 'is_staff', 'date_joined', 'groups', 'user_permissions')
+
+
 class SignInSerializer(serializers.Serializer):
     phone_number = serializers.CharField()
     country_code = serializers.CharField(default=98, initial=98)
     verification_code = serializers.CharField()
     token = serializers.CharField(read_only=True)
+    account_info = UserSerializer(many=False, read_only=True)
 
     def validate_phone_number(self, phone_number):
         user = User.objects.filter(phone_number=phone_number).first()
@@ -64,13 +72,8 @@ class SignInSerializer(serializers.Serializer):
         user.is_phone_number_verified = True
         user.save()
         validated_data['token'] = token
+        validated_data['account_info'] = user
         return validated_data
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        exclude = ('last_login', 'password', 'is_superuser', 'is_staff', 'date_joined', 'groups', 'user_permissions')
 
 
 class EstateSerializer(serializers.ModelSerializer):
