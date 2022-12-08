@@ -50,6 +50,9 @@ class GetAuthenticatedUserAPI(RetrieveAPIView):
 
 
 class GetEstatesAPI(ListAPIView):
+    permission_classes = []
     serializer_class = EstateSerializer
     filterset_class = EstateFilter
     queryset = Estate.objects.active_estates()
+    ordering_fields = ['is_special', 'last_updated_time']
+    search_fields = ['title']
