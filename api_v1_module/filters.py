@@ -14,7 +14,7 @@ class EstateFilter(FilterSet):
     
     class Meta:
         model = Estate
-        fields = ['is_special', 'ad_type', 'max_price', 'is_ladder',
-                  'min_price', 'estate_properties', 'meterage',
+        fields = ['is_special', 'ad_type', 'is_ladder', 'max_price',
+                  'min_price', 'estate_properties',
                   'min_deposit', 'max_deposit', 'category',
                   'number_of_rooms', 'min_meterage', 'max_meterage']
