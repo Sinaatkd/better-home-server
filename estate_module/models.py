@@ -18,6 +18,9 @@ class EstateProperty(BaseModel):
     title = models.CharField(verbose_name='عنوان', max_length=100)
     icon = models.ImageField(upload_to=static_variables.ESTATE_PROPERTY_IMAGE_UPLOAD_PATH, verbose_name='آیکن')
     
+    def __str__(self):
+        return f'{self.title}'
+    
     class Meta:
         verbose_name = 'ویژگی ملک'
         verbose_name_plural = 'ویژگی های ملک'
@@ -40,6 +43,9 @@ class EstateCategory(BaseModel):
 
 class EstateImage(BaseModel):
     image = models.ImageField(upload_to=static_variables.ESTATE_IMAGE_UPLOAD_PATH, verbose_name='تصویر ملک')
+    
+    def __str__(self):
+        return f'{self.image}'
     
     class Meta:
         verbose_name = 'تصویر ملک'
@@ -65,6 +71,9 @@ class Estate(BaseModel):
     expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True, null=True)
     
     objects = EstateManager()
+
+    def __str__(self):
+        return f'{self.consultant.username} - {self.title}'
 
     class Meta:
         verbose_name = 'ملک'
