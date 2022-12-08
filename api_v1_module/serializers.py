@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 from account_module.models import VerificationCode
+from estate_module.models import Estate, EstateCategory, EstateImage, EstateProperty
 from account_module.utils import generate_token_for_user
 
 
@@ -70,3 +71,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('last_login', 'password', 'is_superuser', 'is_staff', 'date_joined', 'groups', 'user_permissions')
+
+
+class EstateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estate
+        exclude = ('is_delete', 'created_at', 'last_updated_time')

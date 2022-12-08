@@ -1,12 +1,14 @@
-from rest_framework.generics import GenericAPIView, RetrieveAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
+from .filters import EstateFilter
 from .serializers import (SendVerificationCodeSerializer, SignInSerializer,
-                          TestConnectionSerializer, UserSerializer)
+                          TestConnectionSerializer, UserSerializer, EstateSerializer)
 
+from estate_module.models import Estate
 
 
 class TestConnectionAPI(GenericAPIView, RetrieveModelMixin):
@@ -45,3 +47,9 @@ class GetAuthenticatedUserAPI(RetrieveAPIView):
     
     def get_object(self):
         return self.request.user
+
+
+class GetEstatesAPI(ListAPIView):
+    serializer_class = EstateSerializer
+    filterset_class = EstateFilter
+    queryset = Estate.objects.active_estates()
