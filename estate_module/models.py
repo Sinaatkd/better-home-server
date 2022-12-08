@@ -54,6 +54,10 @@ class Estate(BaseModel):
     category = models.ManyToManyField(EstateCategory, verbose_name='دسته بندی')
     is_special = models.BooleanField(verbose_name='آگهی ویژه', default=False)
     images = models.ManyToManyField(EstateImage, verbose_name='تصاویر')
+    price = models.BigIntegerField(verbose_name='قیمت')
+    deposit = models.BigIntegerField(verbose_name='ودیعه', null=True, blank=True)
+    ad_type = models.CharField(choices=static_variables.AD_TYPE_CHOICES, max_length=10, verbose_name='نوع آگهی')
+    expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True)
 
     class Meta:
         verbose_name = 'ملک'
