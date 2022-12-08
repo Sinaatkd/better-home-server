@@ -1,10 +1,10 @@
 import static_variables
 
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from base_model_module.models import BaseModel
-from django.contrib.auth import get_user_model
-
+from .managers import EstateManager
 
 User = get_user_model()
 
@@ -58,6 +58,8 @@ class Estate(BaseModel):
     deposit = models.BigIntegerField(verbose_name='ودیعه', null=True, blank=True)
     ad_type = models.CharField(choices=static_variables.AD_TYPE_CHOICES, max_length=10, verbose_name='نوع آگهی')
     expire_date = models.DateTimeField(verbose_name='تاریخ انقضا', blank=True)
+    
+    objects = EstateManager()
 
     class Meta:
         verbose_name = 'ملک'
