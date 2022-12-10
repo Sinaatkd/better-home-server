@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 
 from estate_module.models import Estate
 
-from .user.forms import CreateUserForm, UpdateUserForm
+from .user.forms import CreateUserForm, UpdateUserForm, ChangeUserPasswordForm
 
 User = get_user_model()
 
@@ -64,6 +64,12 @@ class ConsultantUsersListView(ListView):
 class UserUpdateView(UpdateView):
     model = User
     form_class = UpdateUserForm
+    template_name = 'user/user_form.html'
+
+
+class ChangeUserPasswordUpdateView(UpdateView):
+    model = User
+    form_class = ChangeUserPasswordForm
     template_name = 'user/user_form.html'
 
     def form_valid(self, form):

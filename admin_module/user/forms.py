@@ -30,3 +30,29 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
         exclude = ('last_login', 'user_permissions', 'groups', 'country_code', 'date_joined', 'password')
+
+    
+class ChangeUserPasswordForm(forms.ModelForm):
+    confirm_password = forms.CharField(label='تکرار رمز عبور')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'value': ''})
+        
+    field_order = ('password', 'confirm_password')
+
+    class Meta:
+        model = User
+        fields = ('password', 'confirm_password')
+    
+    def clean(self):
+        super(ChangeUserPasswordForm, self).clean()
+
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            self._errors['confirm_password'] = self.error_class(['رمز عبور های وارد شده با یک دیگر مغایرت دارد'])
+            
+        return self.cleaned_data

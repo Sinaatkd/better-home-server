@@ -29,6 +29,7 @@
                                 <th>شماره تلفن</th>
                                 <th>وضعیت مشاور بودن / نبودن</th>
                                 <th>وضعیت ادمین بودن / نبودن</th>
+                                <th>تغییر رمز عبور</th>
                             </tr>
                             {% for user in page_obj %}
                             <tr>
@@ -48,6 +49,9 @@
                                     {% else %}
                                     <span class="label label-warning">کاربر عادی</span>
                                     {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'user_change_password' user.pk %}" class="btn btn-primary">تغییر</a>
                                 </td>
                             </tr>
                             {% empty %}
