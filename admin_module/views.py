@@ -1,8 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.views.generic.list import ListView
+from django.views.generic import ListView, CreateView
 
 from estate_module.models import Estate
+
+from .user.forms import CreateUserForm
 
 User = get_user_model()
 
@@ -32,3 +36,14 @@ class AllUsersListView(ListView):
         if search:
             object_list = self.model.objects.search_user_by_username_or_phone_number(search).order_by('-id')
         return object_list
+
+class CreateUserView(CreateView):
+    model = User
+    form_class = CreateUserForm
+    template_name = 'user/user_form.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.set_password(obj.password)
+        obj.save()
+        return HttpResponseRedirect(reverse('users_list'))
