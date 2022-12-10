@@ -3,6 +3,7 @@ from random import randint
 from datetime import timedelta, datetime
 
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.base_user import BaseUserManager
 
 
@@ -18,6 +19,12 @@ class UserManager(BaseUserManager):
         user.set_password(str(phone_number))
         user.save()
         return user
+    
+    def search_user_by_username_or_phone_number(self, search: str):
+        if search[0] == '0':
+            search = search.replace('0', '', 1)
+        lookup = Q(username__icontains=search) | Q(phone_number__icontains=search)
+        return self.get_queryset().filter(lookup).distinct()
 
         
 class VerificationCodeManager(models.Manager):

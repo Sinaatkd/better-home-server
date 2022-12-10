@@ -1,24 +1,25 @@
 {% load static %}
-  <!-- right side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+<!-- right side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">منو</li>
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-users"></i> <span>ماژول کاربران</span>
-            <span class="pull-left-container">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">منو</li>
+            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i>داشبورد</a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-users"></i> <span>ماژول کاربران</span>
+                    <span class="pull-left-container">
               <i class="fa fa-angle-right pull-left"></i>
             </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-users"></i> همه کاربران</a></li>
-            <li><a href="index2.html"><i class="fa fa-user-secret"></i> مشاوران</a></li>
-          </ul>
-        </li>
-      </ul>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'users-list' %}"><i class="fa fa-users"></i> همه کاربران</a></li>
+                    <li><a href="index2.html"><i class="fa fa-user-secret"></i> مشاوران</a></li>
+                </ul>
+            </li>
+        </ul>
     </section>
     <!-- /.sidebar -->
-  </aside>
+</aside>
