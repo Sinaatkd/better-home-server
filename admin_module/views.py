@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 
 from estate_module.models import Estate
 
-from .user.forms import CreateUserForm
+from .user.forms import CreateUserForm, UpdateUserForm
 
 User = get_user_model()
 
@@ -60,3 +60,14 @@ class ConsultantUsersListView(ListView):
         if search:
             object_list = self.model.objects.search_user_by_username_or_phone_number(search).filter(is_consultant=True).order_by('-id')
         return object_list
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UpdateUserForm
+    template_name = 'user/user_form.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.set_password(obj.password)
+        obj.save()
+        return HttpResponseRedirect(reverse('users_list'))
