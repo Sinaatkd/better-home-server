@@ -47,3 +47,16 @@ class CreateUserView(CreateView):
         obj.set_password(obj.password)
         obj.save()
         return HttpResponseRedirect(reverse('users_list'))
+
+
+class ConsultantUsersListView(ListView):
+    model = User
+    paginate_by = 30
+    template_name = 'user/user_list.html'
+
+    def get_queryset(self):
+        search = self.request.GET.get('search', '')
+        object_list = self.model.objects.filter(is_consultant=True).order_by('-id')
+        if search:
+            object_list = self.model.objects.search_user_by_username_or_phone_number(search).filter(is_consultant=True).order_by('-id')
+        return object_list
