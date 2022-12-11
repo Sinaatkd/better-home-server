@@ -29,8 +29,8 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-info btn-block">ساختن</button>
-                    <a href="{% url 'dashboard' %}" class="btn btn-danger btn-block">انصراف</a>
+                    <button type="submit" class="btn btn-info btn-block">ذخیره</button>
+                    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-danger btn-block">انصراف</a>
                 </div>
               </form>
             </div>
