@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.views.generic import ListView, CreateView, UpdateView
 
@@ -65,6 +65,7 @@ class UserUpdateView(UpdateView):
     model = User
     form_class = UpdateUserForm
     template_name = 'user/user_form.html'
+    success_url = reverse_lazy('users_list')
 
 
 class ChangeUserPasswordUpdateView(UpdateView):
