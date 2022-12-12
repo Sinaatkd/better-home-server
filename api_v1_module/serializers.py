@@ -12,12 +12,6 @@ class TestConnectionSerializer(serializers.Serializer):
     status = serializers.CharField(read_only=True, initial='ok')
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        exclude = ('last_login', 'password', 'is_superuser', 'is_staff', 'date_joined', 'groups', 'user_permissions')
-
-
 class EstateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estate

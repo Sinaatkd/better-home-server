@@ -4,7 +4,7 @@ from rest_framework import serializers
 from account_module.models import VerificationCode
 from account_module.utils import generate_token_for_user
 
-from api_v1_module.serializers import UserSerializer
+from ..account.serializers import UserSerializer
 
 
 User = get_user_model()
