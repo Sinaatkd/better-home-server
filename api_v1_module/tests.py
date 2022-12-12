@@ -82,3 +82,12 @@ class SignInTest(TestCase):
             serializer.save()
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res.json(), serializer.errors)
+    
+    def test_inactive_account(self):
+        inactive_phone_number = 9999999990
+        inactive_account = User.objects.create_user(username='sign_in_inactive_user', password='fldsf', phone_number=inactive_phone_number, is_active=False)
+        payload = {
+            'phone_number': inactive_account.phone_number
+        }
+        res = client.post(reverse('send_verification_code_api'), data=payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
