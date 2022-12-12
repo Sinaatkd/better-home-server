@@ -12,6 +12,9 @@ class User(AbstractUser):
     phone_number = models.BigIntegerField(verbose_name='شماره تلفن', unique=True)
     is_phone_number_verified = models.BooleanField(default=False, verbose_name='شماره تلفن تایید شده / نشده')
     is_consultant = models.BooleanField(default=False, verbose_name='وضعیت مشاور بودن / نبودن')
+    ad_monthly_quota = models.PositiveSmallIntegerField(verbose_name='سهمیه ماهانه آگهی', null=True, blank=True, default=10)
+    ladder_monthly_quota = models.PositiveSmallIntegerField(verbose_name='سهمیه ماهانه نردبون', null=True, blank=True, default=20)
+    special_ad_monthly_quota = models.PositiveSmallIntegerField(verbose_name='سهمیه ماهانه آگهی ویژه', null=True, blank=True, default=2)
     
     objects = UserManager()
     

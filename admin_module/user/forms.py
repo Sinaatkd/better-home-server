@@ -6,7 +6,8 @@ User = get_user_model()
 
 
 class CreateUserForm(forms.ModelForm):
-    field_order = ('username', 'password', 'phone_number', 'email', 'first_name', 'last_name')
+    field_order = ('username', 'password', 'phone_number', 'email', 'first_name', 'last_name',
+                    'ad_monthly_quota','ladder_monthly_quota','special_ad_monthly_quota')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
@@ -20,7 +21,8 @@ class CreateUserForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
-    field_order = ('username', 'phone_number', 'email', 'first_name', 'last_name')
+    field_order = ('username', 'phone_number', 'email', 'first_name', 'last_name',
+                    'ad_monthly_quota','ladder_monthly_quota','special_ad_monthly_quota')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
