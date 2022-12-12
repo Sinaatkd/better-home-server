@@ -1,14 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 
-from .views import (SendVerificationCodeAPI, SignInAPI, TestConnectionAPI,
-                    GetAuthenticatedUserAPI, GetEstatesAPI)
+from .views import (TestConnectionAPI, GetAuthenticatedUserAPI, GetEstatesAPI)
 
 urlpatterns = [
     path('test-connection/', TestConnectionAPI.as_view(), name='test_connection_api'),
     
     # Authentication
-    path('auth/send-verification-code/', SendVerificationCodeAPI.as_view(), name='send_verification_code_api'),
-    path('auth/sign-in/', SignInAPI.as_view(), name='sign_in_api'),
+    path('auth/', include('api_v1_module.auth.urls'), name='api_vi_auth'),
+
+    # Account
     path('account/', GetAuthenticatedUserAPI.as_view(), name='get_authenticated_user_api'),
 
     # Estate
