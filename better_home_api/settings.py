@@ -157,8 +157,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '3/second',
-        'user': '3/second'
+        'anon': '10/second',
+        'user': '20/second'
     },
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
