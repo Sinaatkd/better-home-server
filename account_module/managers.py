@@ -8,6 +8,12 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 class UserManager(BaseUserManager):
+    def create_user(self, phone_number, **extra_fields):
+        user = self.get_queryset().create(phone_number=phone_number, **extra_fields)
+        user.set_password(extra_fields['password'])
+        user.save()
+        return user
+    
     def get_or_create(self, phone_number, **extra_fields):
         '''It checks whether there is a user with the entered phone number or not, 
         if there is no user with the entered phone number, it creates one
@@ -15,9 +21,9 @@ class UserManager(BaseUserManager):
         user = self.get_queryset().filter(phone_number=phone_number, **extra_fields).first()
         if user is not None:
             return user
-        user = self.model(phone_number=phone_number, username=str(phone_number), **extra_fields)
-        user.set_password(str(phone_number))
-        user.save()
+        extra_fields['username'] = str(phone_number)
+        extra_fields['password'] = str(phone_number)
+        user = self.create_user(phone_number=phone_number, **extra_fields)
         return user
     
     def search_user_by_username_or_phone_number(self, search: str):
