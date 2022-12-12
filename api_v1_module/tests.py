@@ -15,11 +15,13 @@ User = get_user_model()
 
 
 class SendVerificationCodeTest(TestCase):
+    def setUp(self) -> None:
+        self.test_phone_number = 9100000000
+        self.payload = {'phone_number': self.test_phone_number}
+    
     def test_correct_request(self):
-        test_phone_number = 9100000000
-        payload = {'phone_number': test_phone_number}
-        res = client.post(reverse('send_verification_code_api'), data=payload)
-        serializer = SendVerificationCodeSerializer(data=payload)
+        res = client.post(reverse('send_verification_code_api'), data=self.payload)
+        serializer = SendVerificationCodeSerializer(data=self.payload)
         if serializer.is_valid():
             serializer.save()
             self.assertEqual(res.json(), serializer.data)
@@ -28,12 +30,21 @@ class SendVerificationCodeTest(TestCase):
     def test_incorrect_request(self):
         res = client.post(reverse('send_verification_code_api'))
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_inactive_account(self):
+        inactive_phone_number = 9999999999
+        inactive_account = User.objects.create_user(username='username', password='fldsf', phone_number=inactive_phone_number, is_active=False)
+        payload = {
+            'phone_number': inactive_account.phone_number
+        }
+        res = client.post(reverse('send_verification_code_api'), data=payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class SignInTest(TestCase):
     def setUp(self) -> None:
         self.phone_number = 9120000000
-        self.user = User.objects.get_or_create(phone_number=self.phone_number)
+        self.user = User.objects.create_user(phone_number=self.phone_number, username='username', password='password')
         self.verification_code = VerificationCode.objects.create_verification_code(user=self.user)
 
     def test_success_sign_in(self):
