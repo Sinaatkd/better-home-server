@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 
-from .views import GetEstatesAPI
+from rest_framework.routers import SimpleRouter 
+
+from .views import EstatesViewSet
+
+router = SimpleRouter()
+router.register('', EstatesViewSet)
 
 urlpatterns = [
-    path('', GetEstatesAPI.as_view(), name='get_estate_api')
+    path('', include(router.urls))
 ]
