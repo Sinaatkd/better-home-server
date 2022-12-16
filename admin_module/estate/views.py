@@ -1,4 +1,6 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
+
+from django.urls import reverse_lazy
 
 from estate_module.models import Estate
 
@@ -15,3 +17,10 @@ class EstateListView(ListView):
         if search:
             object_list = self.model.objects.filter(title__icontains=search).distinct().order_by('-id')
         return object_list
+
+
+class EstateDeleteView(DeleteView):
+    model = Estate
+    template_name = 'estate/estate_confirm_delete.html'
+    success_url = reverse_lazy('estates-list')
+    
