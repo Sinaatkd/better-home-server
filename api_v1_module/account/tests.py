@@ -4,7 +4,6 @@ from django.urls import reverse
 
 from rest_framework import status
 
-from .serializers import UserSerializer
 from account_module.models import VerificationCode
 
 client = Client()
@@ -20,17 +19,17 @@ class GetAuthenticatedUserTest(TestCase):
             'phone_number': self.user.phone_number,
             'verification_code': self.verification_code.code
         } 
-        res = client.post(reverse('sign_in_api'), data=payload)
+        res = client.post(reverse('sign-in-api'), data=payload)
         self.token = res.json()['token']
     
     def test_authorized(self):
         headers = {
             'HTTP_AUTHORIZATION': f'Bearer {self.token}'
         }
-        res = client.get(reverse('get_authenticated_user_api'), **headers)
+        res = client.get(reverse('get-authenticated-user-api'), **headers)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
     
     def test_unauthorized(self):
-        res = client.get(reverse('get_authenticated_user_api'))
+        res = client.get(reverse('get-authenticated-user-api'))
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
     

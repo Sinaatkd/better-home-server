@@ -27,7 +27,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', decorator_include(login_required, include('admin_module.urls')), name='admin'),
-    path('api/v1/', include('api_v1_module.urls'), name='api_v1'),
+    path('api/v1/', include('api_v1_module.urls'), name='api-v1'),
     path('docs', schema_view.with_ui('redoc', cache_timeout=0), name='docs'),
 ]
 

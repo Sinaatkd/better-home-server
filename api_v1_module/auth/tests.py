@@ -20,7 +20,7 @@ class SendVerificationCodeTest(TestCase):
         self.payload = {'phone_number': self.test_phone_number}
     
     def test_correct_request(self):
-        res = client.post(reverse('send_verification_code_api'), data=self.payload)
+        res = client.post(reverse('send-verification-code-api'), data=self.payload)
         serializer = SendVerificationCodeSerializer(data=self.payload)
         if serializer.is_valid():
             serializer.save()
@@ -28,7 +28,7 @@ class SendVerificationCodeTest(TestCase):
             self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
     def test_incorrect_request(self):
-        res = client.post(reverse('send_verification_code_api'))
+        res = client.post(reverse('send-verification-code-api'))
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
     
     def test_inactive_account(self):
@@ -37,7 +37,7 @@ class SendVerificationCodeTest(TestCase):
         payload = {
             'phone_number': inactive_account.phone_number
         }
-        res = client.post(reverse('send_verification_code_api'), data=payload)
+        res = client.post(reverse('send-verification-code-api'), data=payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
 
@@ -52,7 +52,7 @@ class SignInTest(TestCase):
             'phone_number': self.phone_number,
             'verification_code': self.verification_code.code
         }
-        res = client.post(reverse('sign_in_api'), data=payload)
+        res = client.post(reverse('sign-in-api'), data=payload)
         serializer = SignInSerializer(data=payload)
         if serializer.is_valid():
             serializer.save()
@@ -64,7 +64,7 @@ class SignInTest(TestCase):
             'phone_number': not_registered_phone_number,
             'verification_code': self.verification_code.code
         }
-        res = client.post(reverse('sign_in_api'), data=payload)
+        res = client.post(reverse('sign-in-api'), data=payload)
         serializer = SignInSerializer(data=payload)
         if serializer.is_valid():
             serializer.save()
@@ -76,7 +76,7 @@ class SignInTest(TestCase):
             'phone_number': self.phone_number,
             'verification_code': 1111
         }
-        res = client.post(reverse('sign_in_api'), data=payload)
+        res = client.post(reverse('sign-in-api'), data=payload)
         serializer = SignInSerializer(data=payload)
         if serializer.is_valid():
             serializer.save()
@@ -89,5 +89,5 @@ class SignInTest(TestCase):
         payload = {
             'phone_number': inactive_account.phone_number
         }
-        res = client.post(reverse('send_verification_code_api'), data=payload)
+        res = client.post(reverse('sign-in-api'), data=payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)

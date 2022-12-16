@@ -4,9 +4,9 @@ from .views import (AllUsersListView, CreateUserView, ConsultantUsersListView, U
 
 
 urlpatterns = [
-    path('', AllUsersListView.as_view(), name='users_list'),
-    path('consultants', ConsultantUsersListView.as_view(), name='consultant_users_list'),
-    path('<int:pk>/detail', UserUpdateView.as_view(), name='user_detail'),
-    path('<int:pk>/change-password', ChangeUserPasswordUpdateView.as_view(), name='user_change_password'),
-    path('new', CreateUserView.as_view(), name='create_user'),
+    path('', AllUsersListView.as_view(), name='users-list'),
+    path('consultants', ConsultantUsersListView.as_view(), name='consultant-users-list'),
+    path('<int:pk>/detail', UserUpdateView.as_view(), name='user-detail'),
+    path('<int:pk>/change-password', ChangeUserPasswordUpdateView.as_view(), name='user-change-password'),
+    path('new', CreateUserView.as_view(), name='create-user'),
 ]
