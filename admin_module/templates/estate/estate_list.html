@@ -1,0 +1,103 @@
+{% extends 'shared/main_layout_admin.html' %}
+
+{% block content_header %}
+<h1>
+    کاربران
+</h1>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <div class="input-group input-group-sm">
+                        <form method="get">
+                            <input type="text" name="search" value="{{ request.GET.search }}" class="form-control"
+                                placeholder="جستجو">
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding mt-5">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>شناسه</th>
+                                <th>عنوان</th>
+                                <th>آدرس</th>
+                                <th>مشاور</th>
+                                <th>نردبون</th>
+                                <th>ویژه</th>
+                            </tr>
+                            {% for estate in page_obj %}
+                            <tr>
+                                <td>{{ estate.pk }}</td>
+                                <td><a href="{% url 'user-detail' user.pk %}">{{ estate.title }}</a></td>
+                                <td>{{ estate.address }}</td>
+                                <td>{{ estate.consultant }}
+                                <td>
+                                    {% if estate.is_ladder %}
+                                    <span class="label label-success">نردبون</span>
+                                    {% else %}
+                                    <span class="label label-warning">عادی</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if estate.is_special %}
+                                    <span class="label label-success">ویژه</span>
+                                    {% else %}
+                                    <span class="label label-warning">عادی</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <h4 class="text-center">آگهی پیدا نشد</h4>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="box-header">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="paginate_button page-item previous" id="example2_previous">
+                                <a href="?page={{page_obj.previous_page_number}}"
+                                    aria-controls="example2" data-dt-idx="0" tabindex="0"
+                                    class="page-link">قبلی</a>
+                            </li>
+                            {% endif %}
+
+                            {% for page_num in paginator.page_range %}
+
+                            {% if page_obj.number == page_num and not page_obj.has_next and not page_obj.has_previous %}
+                            <p>صفحه بعدی وجود ندارد</p>
+                            {% else %}
+                            {% if page_obj.number == page_num %}
+                            <li class="paginate_button page-item active">
+                                <a aria-controls="example2" data-dt-idx="1" tabindex="0"
+                                    class="page-link">{{ page_num }}</a>
+                            </li>
+
+                            {% else %}
+                            <li class="paginate_button page-item"><a href="?page={{page_num}}"
+                                    aria-controls="example2" data-dt-idx="1" tabindex="0"
+                                    class="page-link">{{ page_num }}</a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <li class="paginate_button page-item next" id="example2_next"><a
+                                    href="?page={{page_obj.next_page_number}}" aria-controls="example2"
+                                    data-dt-idx="7" tabindex="0" class="page-link">بعدی</a></li>
+                            {% endif %}
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+{% endblock %}

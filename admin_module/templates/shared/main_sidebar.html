@@ -20,6 +20,21 @@
                     <li><a href="{% url 'create-user' %}"><i class="fa fa-user-plus"></i> اضافه کردن کاربر</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-home"></i> <span>ماژول املاک</span>
+                    <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <!-- TODO: change urls -->
+                    <li><a href="{% url 'estates-list' %}"><i class="fa fa-user-plus"></i>آگهی ها</a></li>
+                    <li><a href="{% url 'create-user' %}"><i class="fa fa-user-plus"></i>افزودن آگهی</a></li>
+                    <li><a href="{% url 'create-user' %}"><i class="fa fa-user-plus"></i>ویژگی ها</a></li>
+                    <li><a href="{% url 'create-user' %}"><i class="fa fa-user-plus"></i>افزودن ویژگی</a></li>
+                </ul>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

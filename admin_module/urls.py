@@ -4,5 +4,6 @@ from .views import (dashboard)
 
 urlpatterns = [
     path('', dashboard, name='dashboard'),
-    path('users/', include('admin_module.user.urls'), name='admin-user')
+    path('users/', include('admin_module.user.urls'), name='admin-user'),
+    path('estates/', include('admin_module.estate.urls'), name='admin-estate'),
 ]
