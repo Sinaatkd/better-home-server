@@ -31,7 +31,7 @@ class CreateUserView(CreateView):
         obj = form.save(commit=False)
         obj.set_password(obj.password)
         obj.save()
-        return HttpResponseRedirect(reverse('users_list'))
+        return HttpResponseRedirect(reverse('users-list'))
 
 
 class ConsultantUsersListView(ListView):
@@ -50,7 +50,7 @@ class UserUpdateView(UpdateView):
     model = User
     form_class = UpdateUserForm
     template_name = 'user/user_form.html'
-    success_url = reverse_lazy('users_list')
+    success_url = reverse_lazy('users-list')
 
 
 class ChangeUserPasswordUpdateView(UpdateView):
@@ -62,4 +62,4 @@ class ChangeUserPasswordUpdateView(UpdateView):
         obj = form.save(commit=False)
         obj.set_password(obj.password)
         obj.save()
-        return HttpResponseRedirect(reverse('users_list'))
+        return HttpResponseRedirect(reverse('users-list'))

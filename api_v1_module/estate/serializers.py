@@ -37,3 +37,23 @@ class EstateCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estate
         exclude = ('is_delete', 'created_at', 'last_updated_time')
+
+    
+    def update(self, instance, validated_data):
+        # check consultant special ad monthly quota
+        # if the quota was over. Ad not change
+        if not instance.is_special and (validated_data.get('is_special')):
+            if instance.consultant.special_ad_monthly_quota > 0:
+                instance.consultant.special_ad_monthly_quota -= 1
+            else:
+                raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی ویژه شما به اتمام رسیده است.')
+
+        # check consultant ladder ad monthly quota
+        # if the quota was over. Ad not change
+        if not instance.is_ladder and (validated_data.get('is_ladder')):
+            if instance.consultant.ladder_monthly_quota > 0:
+                instance.consultant.ladder_monthly_quota -= 1
+            else:
+                raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی نردبون شما به اتمام رسیده است.')
+        instance.consultant.save()
+        return super().update(instance, validated_data)
