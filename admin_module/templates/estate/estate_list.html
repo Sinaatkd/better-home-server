@@ -52,7 +52,7 @@
                                     <span class="label label-warning">عادی</span>
                                     {% endif %}
                                 </td>
-                                <td><a href="" class="btn btn-danger">حذف</a></td>
+                                <td><a href="{% url 'estate-delete' estate.pk %}" class="btn btn-danger">حذف</a></td>
                             </tr>
                             {% empty %}
                             <h4 class="text-center">آگهی پیدا نشد</h4>

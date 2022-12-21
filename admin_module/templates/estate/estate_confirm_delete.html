@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-12">
             <form method="post">{% csrf_token %}
-                <div class="alert alert-danger">آیا از حذف آگهی "{{ object.title }}" مطمئن هستید؟</div>
+                <div class="alert alert-warning">آیا از حذف آگهی "{{ object.title }}" مطمئن هستید؟</div>
                 <input type="submit" value="بله, حذف کن" class="btn btn-danger">
                 <a class="btn btn-default" href="{% url 'estates-list' %}">انصراف</a>
             </form>
