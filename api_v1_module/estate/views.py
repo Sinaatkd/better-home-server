@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
 from .filters import EstateFilter
-from .serializers import EstateSerializer
+from .serializers import EstateSerializer, EstateCreateUpdateSerializer
 from .permissions import IsConsultantUser, IsOwnerEstateAd
 
 from estate_module.models import Estate
@@ -24,3 +24,8 @@ class EstatesViewSet(ModelViewSet):
         if self.action in ['update', 'destroy']:
             permission_classes = [IsAuthenticated, IsConsultantUser, IsOwnerEstateAd]
         return [permission() for permission in permission_classes]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return EstateCreateUpdateSerializer
+        return EstateSerializer
