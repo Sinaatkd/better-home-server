@@ -35,7 +35,7 @@
                             {% for estate in page_obj %}
                             <tr>
                                 <td>{{ estate.pk }}</td>
-                                <td><a href="{% url 'user-detail' user.pk %}">{{ estate.title }}</a></td>
+                                <td><a href="{% url 'estate-edit' estate.pk %}">{{ estate.title }}</a></td>
                                 <td>{{ estate.address }}</td>
                                 <td>{{ estate.consultant }}
                                 <td>

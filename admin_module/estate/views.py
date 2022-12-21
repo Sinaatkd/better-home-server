@@ -1,10 +1,10 @@
-from django.views.generic import ListView, DeleteView, CreateView
+from django.views.generic import ListView, DeleteView, CreateView, UpdateView
 
 from django.urls import reverse_lazy
 
 from estate_module.models import Estate
 
-from .forms import CreateEstateForm
+from .forms import CreateEstateForm, UpdateEstateForm
 
 class EstateListView(ListView):
     model = Estate
@@ -29,6 +29,13 @@ class EstateDeleteView(DeleteView):
 class EstateCreateView(CreateView):
     model = Estate
     form_class = CreateEstateForm
+    template_name = 'estate/estate_form.html'
+    success_url = reverse_lazy('estates-list')
+
+
+class EstateUpdateView(UpdateView):
+    model = Estate
+    form_class = UpdateEstateForm
     template_name = 'estate/estate_form.html'
     success_url = reverse_lazy('estates-list')
 
