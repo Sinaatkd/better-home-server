@@ -57,3 +57,28 @@ class EstateCreateUpdateSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی نردبون شما به اتمام رسیده است.')
         instance.consultant.save()
         return super().update(instance, validated_data)
+
+    def create(self, validated_data):
+        # check consultant ad monthly quota
+        # if the quota was over. Ad not create
+        if validated_data['consultant'].ad_monthly_quota <= 0:
+            raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی شما به اتمام رسیده است.')
+        else: validated_data['consultant'].ad_monthly_quota -= 1
+            
+        # check consultant special ad monthly quota
+        # if the quota was over. Ad not create
+        if validated_data['is_special']:
+            if validated_data['consultant'].special_ad_monthly_quota > 0:
+                validated_data['consultant'].special_ad_monthly_quota -= 1
+            else:
+                raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی ویژه شما به اتمام رسیده است.')
+
+        # check consultant ladder ad monthly quota
+        # if the quota was over. Ad not create
+        if validated_data['is_ladder']:
+            if validated_data['consultant'].ladder_monthly_quota > 0:
+                validated_data['consultant'].ladder_monthly_quota -= 1
+            else:
+                raise serializers.ValidationError('سهمیه ی ماهانه ثبت آگهی نردبون شما به اتمام رسیده است.')
+        validated_data['consultant'].save()
+        return super().create(validated_data)
