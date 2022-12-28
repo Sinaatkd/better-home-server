@@ -9,23 +9,20 @@ from estate_module.models import Estate
 
 
 class EstatesViewSet(ModelViewSet):
-    permission_classes = []
-    authentication_classes = []
-    # serializer_class = EstateSerializer
     filterset_class = EstateFilter
     queryset = Estate.objects.active_estates()
     ordering_fields = ['is_special', 'last_ladder_updated_time', 'is_ladder']
     search_fields = ['title', 'address']
 
-    # def get_permissions(self):
-    #     permission_classes = []
-    #     if self.action in ['list', 'retrieve']:
-    #         permission_classes = [IsAuthenticated]
-    #     if self.action == 'create':
-    #         permission_classes = [IsAuthenticated, IsConsultantUser]
-    #     if self.action in ['update', 'destroy']:
-    #         permission_classes = [IsAuthenticated, IsConsultantUser, IsOwnerEstateAd]
-    #     return [permission() for permission in permission_classes]
+    def get_permissions(self):
+        permission_classes = []
+        if self.action in ['list', 'retrieve']:
+            permission_classes = [IsAuthenticated]
+        if self.action == 'create':
+            permission_classes = [IsAuthenticated, IsConsultantUser]
+        if self.action in ['update', 'destroy']:
+            permission_classes = [IsAuthenticated, IsConsultantUser, IsOwnerEstateAd]
+        return [permission() for permission in permission_classes]
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
