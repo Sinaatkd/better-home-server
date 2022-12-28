@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from estate_module.models import Estate, EstateProperty, EstateImage, EstateCategory
+from estate_module.models import Estate, EstateProperty, EstateImage
 
 
 
@@ -17,14 +17,8 @@ class EstateImageSerializer(serializers.ModelSerializer):
         fields = ('image', )
 
 
-class EstateCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EstateCategory
-        fields = ('title', 'slug')
-
 
 class EstateSerializer(serializers.ModelSerializer):
-    category = EstateCategorySerializer(many=True)
     images = EstateImageSerializer(many=True)
     estate_properties = EstatePropertySerializer(many=True)
     

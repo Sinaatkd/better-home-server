@@ -25,20 +25,20 @@ class EstateProperty(BaseModel):
         verbose_name = 'ویژگی ملک'
         verbose_name_plural = 'ویژگی های ملک'
 
+# TODO: maybe category model added in future
+# class EstateCategory(BaseModel):
+#     parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True, verbose_name='والد')
+#     title = models.CharField(max_length=100, verbose_name='عنوان')
+#     slug = models.SlugField(unique=True, null=False, editable=False)
 
-class EstateCategory(BaseModel):
-    parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True, verbose_name='والد')
-    title = models.CharField(max_length=100, verbose_name='عنوان')
-    slug = models.SlugField(unique=True, null=False, editable=False)
+#     def __str__(self):
+#         return self.title
 
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        #enforcing that there can not be two categories under a parent with same slug
-        unique_together = ('slug', 'parent',)
-        verbose_name = "دسته بندی ملک"
-        verbose_name_plural = "دسته بندی های ملک"
+#     class Meta:
+#         #enforcing that there can not be two categories under a parent with same slug
+#         unique_together = ('slug', 'parent',)
+#         verbose_name = "دسته بندی ملک"
+#         verbose_name_plural = "دسته بندی های ملک"
     
 
 class EstateImage(BaseModel):
@@ -63,7 +63,8 @@ class Estate(BaseModel):
     floor = models.PositiveIntegerField(verbose_name='طبقه')
     estate_properties = models.ManyToManyField(EstateProperty, verbose_name='ویژگی ها', blank=True)
     meterage = models.PositiveIntegerField(verbose_name='متراژ')
-    category = models.ManyToManyField(EstateCategory, verbose_name='دسته بندی')
+    category = models.CharField(choices=static_variables.AD_CATEGORY_CHOICES, max_length=9,
+                                verbose_name='دسته بندی', null=True, blank=True)
     is_special = models.BooleanField(verbose_name='آگهی ویژه', default=False)
     images = models.ManyToManyField(EstateImage, verbose_name='تصاویر', blank=True)
     price = models.BigIntegerField(verbose_name='قیمت')
