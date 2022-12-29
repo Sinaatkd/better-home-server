@@ -1,73 +1,76 @@
 {% extends 'shared/main_layout_admin.html' %}
 
 {% block content_header %}
-    <h1>
-        خانه
-        <small>داشبورد</small>
-    </h1>
+<h1>
+  خانه
+  <small>داشبورد</small>
+</h1>
 {% endblock %}
 
 {% block content %}
 <section class="content">
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>{{ all_users_count }}</h3>
-              <p>تعداد کاربران</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="{% url 'users-list' %}" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
+  <div class="row">
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>{{ all_users_count }}</h3>
+          <p>تعداد کاربران</p>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>{{ all_consultants_count }}</h3>
-              <p>تعداد مشاور</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-user-secret"></i>
-            </div>
-            <a href="{% url 'consultant-users-list' %}" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
+        <div class="icon">
+          <i class="fa fa-users"></i>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>{{ all_estates_ads }}</h3>
-
-              <p>تعداد آگهی</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-home"></i>
-            </div>
-            <a href="{% url 'estates-list' %}" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>بازدید جدید</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
+        <a href="{% url 'users-list' %}" class="small-box-footer">اطلاعات بیشتر <i
+            class="fa fa-arrow-circle-left"></i></a>
       </div>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <h3>{{ all_estates_ads }}</h3>
+
+          <p>تعداد آگهی</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-home"></i>
+        </div>
+        <a href="{% url 'estates-list' %}" class="small-box-footer">اطلاعات بیشتر <i
+            class="fa fa-arrow-circle-left"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h3>{{ memory_percent_usage}}%</h3>
+
+          <p>مقدار مصرفی RAM</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>{{ cpu_percent_usage}}%</h3>
+
+          <p>مقدار مصرفی CPU</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+  </div>
 </section>
 {% endblock %}
