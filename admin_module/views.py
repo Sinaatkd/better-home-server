@@ -12,16 +12,20 @@ def dashboard(request):
     all_users = User.objects.all()
     all_users_count = all_users.count()
     all_consultants_count = all_users.filter(is_consultant=True).count()
-    all_estates_ads = Estate.objects.all().count()
+    all_estates_ads = Estate.objects.all()
     memory_percent_usage = psutil.virtual_memory()[2]
     cpu_percent_usage = psutil.cpu_percent()
+    latest_users = all_users.order_by('-id')[:10]
+    latest_estates_ads = all_estates_ads.order_by('-id')[:10]
 
     context = {
         'all_users_count': all_users_count,
+        'latest_users': latest_users,
         'all_consultants_count': all_consultants_count,
-        'all_estates_ads': all_estates_ads,
+        'all_estates_ads': all_estates_ads.count(),
         'memory_percent_usage': memory_percent_usage,
         'cpu_percent_usage': cpu_percent_usage,
+        'latest_estates_ads': latest_estates_ads,
     }
     return render(request, 'dashboard.html', context)
 
