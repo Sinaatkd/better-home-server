@@ -174,3 +174,4 @@ SIMPLE_JWT = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 LOGIN_URL = reverse_lazy('login-admin')
+LOGOUT_REDIRECT_URL = reverse_lazy('login-admin')
