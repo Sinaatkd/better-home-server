@@ -1,11 +1,12 @@
+from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
 from .filters import EstateFilter
-from .serializers import EstateSerializer, EstateCreateUpdateSerializer
+from .serializers import EstateSerializer, EstateCreateUpdateSerializer, EstatePropertySerializer
 from .permissions import IsConsultantUser, IsOwnerEstateAd
 
-from estate_module.models import Estate
+from estate_module.models import Estate, EstateProperty
 
 
 class EstatesViewSet(ModelViewSet):
@@ -28,3 +29,10 @@ class EstatesViewSet(ModelViewSet):
         if self.action in ['create', 'update']:
             return EstateCreateUpdateSerializer
         return EstateSerializer
+
+
+class GetEstatePropertiesAPI(ListAPIView):
+    authentication_classes = []
+    permission_classes = []
+    queryset = EstateProperty.objects.all()
+    serializer_class = EstatePropertySerializer
