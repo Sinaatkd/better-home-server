@@ -24,13 +24,13 @@ class EstateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Estate
-        exclude = ('is_delete', 'created_at', 'last_updated_time')
+        exclude = ('is_delete', 'created_at', 'last_updated_time', 'fav_of_users')
 
 
 class EstateCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estate
-        exclude = ('is_delete', 'created_at', 'last_updated_time')
+        exclude = ('is_delete', 'created_at', 'last_updated_time', 'fav_of_users')
 
     
     def update(self, instance, validated_data):

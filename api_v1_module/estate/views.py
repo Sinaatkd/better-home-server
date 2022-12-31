@@ -32,7 +32,5 @@ class EstatesViewSet(ModelViewSet):
 
 
 class GetEstatePropertiesAPI(ListAPIView):
-    authentication_classes = []
-    permission_classes = []
     queryset = EstateProperty.objects.all()
     serializer_class = EstatePropertySerializer

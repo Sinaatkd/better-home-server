@@ -73,6 +73,7 @@ class Estate(BaseModel):
     is_ladder = models.BooleanField(default=False, verbose_name='نردبون')
     last_ladder_updated_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ اپدیت نردبون', null=True, blank=True)
     build_date = models.PositiveIntegerField(verbose_name='سال ساخت', null=True, blank=True)
+    fav_of_users = models.ManyToManyField(User, verbose_name='مورد علاقه', blank=True, related_name='fav_of_users')
     
     objects = EstateManager()
 
