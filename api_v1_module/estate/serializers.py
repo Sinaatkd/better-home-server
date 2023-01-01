@@ -7,7 +7,7 @@ from estate_module.models import Estate, EstateProperty, EstateImage
 class EstatePropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = EstateProperty
-        fields = ('icon', 'title')
+        fields = ('id', 'icon', 'title')
 
 
 
