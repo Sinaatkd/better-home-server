@@ -24,7 +24,7 @@ class EstateImageSerializer(serializers.ModelSerializer):
 class ConsultantSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'phone_number')
+        fields = ('id', 'username', 'first_name', 'last_name', 'phone_number')
 
 class EstateSerializer(serializers.ModelSerializer):
     images = EstateImageSerializer(many=True)
