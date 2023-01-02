@@ -1,7 +1,11 @@
+from django.contrib.auth import get_user_model
+
 from rest_framework import serializers
 
 from estate_module.models import Estate, EstateProperty, EstateImage
 
+
+User = get_user_model()
 
 
 class EstatePropertySerializer(serializers.ModelSerializer):
@@ -17,10 +21,15 @@ class EstateImageSerializer(serializers.ModelSerializer):
         fields = ('id', 'image')
 
 
+class ConsultantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'phone_number')
 
 class EstateSerializer(serializers.ModelSerializer):
     images = EstateImageSerializer(many=True)
     estate_properties = EstatePropertySerializer(many=True)
+    consultant = ConsultantSerializer()
     
     class Meta:
         model = Estate
