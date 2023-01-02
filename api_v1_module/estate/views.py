@@ -1,12 +1,13 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
 from .filters import EstateFilter
-from .serializers import EstateSerializer, EstateCreateUpdateSerializer, EstatePropertySerializer
+from .serializers import (  EstateSerializer, EstateCreateUpdateSerializer,
+                            EstatePropertySerializer, EstateImageSerializer)
 from .permissions import IsConsultantUser, IsOwnerEstateAd
 
-from estate_module.models import Estate, EstateProperty
+from estate_module.models import Estate, EstateProperty, EstateImage
 
 
 class EstatesViewSet(ModelViewSet):
@@ -34,3 +35,11 @@ class EstatesViewSet(ModelViewSet):
 class GetEstatePropertiesAPI(ListAPIView):
     queryset = EstateProperty.objects.all()
     serializer_class = EstatePropertySerializer
+
+
+class UploadEstateImageAPI(CreateAPIView):
+    serializer_class = EstateImageSerializer
+    queryset = EstateImage.objects.all()
+    authentication_classes = []
+    permission_classes = []
+    

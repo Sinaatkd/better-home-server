@@ -14,7 +14,7 @@ class EstatePropertySerializer(serializers.ModelSerializer):
 class EstateImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = EstateImage
-        fields = ('image', )
+        fields = ('id', 'image')
 
 
 
