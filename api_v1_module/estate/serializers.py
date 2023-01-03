@@ -30,11 +30,17 @@ class EstateSerializer(serializers.ModelSerializer):
     images = EstateImageSerializer(many=True)
     estate_properties = EstatePropertySerializer(many=True)
     consultant = ConsultantSerializer()
+    is_favorite = serializers.SerializerMethodField('is_fav')
     
     class Meta:
         model = Estate
         exclude = ('is_delete', 'created_at', 'last_updated_time', 'fav_of_users')
 
+    def is_fav(self, estate):
+        user = self.context['request'].user
+        if user.fav_of_users.filter(id=estate.id).exists():
+            return True 
+        return False
 
 class EstateCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
