@@ -40,6 +40,4 @@ class GetEstatePropertiesAPI(ListAPIView):
 class UploadEstateImageAPI(CreateAPIView):
     serializer_class = EstateImageSerializer
     queryset = EstateImage.objects.all()
-    authentication_classes = []
-    permission_classes = []
     

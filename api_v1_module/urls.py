@@ -8,4 +8,5 @@ urlpatterns = [
     path('auth/', include('api_v1_module.auth.urls'), name='api-v1-auth'),
     path('account/', include('api_v1_module.account.urls'), name='api-v1-account'),
     path('estates/', include('api_v1_module.estate.urls'), name='api-v1-estate'),
+    path('user-contacts/', include('api_v1_module.user_contact.urls'), name='api-v1-user-contacts'),
 ]
