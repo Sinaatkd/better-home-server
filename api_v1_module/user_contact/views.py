@@ -9,7 +9,7 @@ from .permissions import IsConsultantCustomer
 
 class UserContactsViewSet(ModelViewSet):
     serializer_class = CreateUserContactSerializer
-    permission_classes = [IsAuthenticated, IsConsultantUser, IsConsultantCustomer]
+    permission_classes = [IsAuthenticated, IsConsultantCustomer]
 
     def get_queryset(self):
         return UserContact.objects.filter(consultant=self.request.user)
