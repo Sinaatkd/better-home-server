@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account_module',
     'estate_module',
     'user_contact_module',
+    'user_income_module',
     'api_v1_module',
 
     # installed packages
