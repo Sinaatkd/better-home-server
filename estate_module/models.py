@@ -71,6 +71,7 @@ class Estate(BaseModel):
     deposit = models.BigIntegerField(verbose_name='ودیعه', null=True, blank=True)
     ad_type = models.CharField(choices=static_variables.AD_TYPE_CHOICES, max_length=10, verbose_name='نوع آگهی')
     is_ladder = models.BooleanField(default=False, verbose_name='نردبون')
+    is_publish = models.BooleanField(default=False, verbose_name='انتشار نهایی')
     last_ladder_updated_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ اپدیت نردبون', null=True, blank=True)
     build_date = models.PositiveIntegerField(verbose_name='سال ساخت', null=True, blank=True)
     fav_of_users = models.ManyToManyField(User, verbose_name='مورد علاقه', blank=True, related_name='fav_of_users')
