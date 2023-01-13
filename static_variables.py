@@ -2,10 +2,21 @@ ESTATE_IMAGE_UPLOAD_PATH = 'estates/'
 ESTATE_PROPERTY_IMAGE_UPLOAD_PATH = 'estates/properties/'
 
 AD_TYPE_CHOICES = (('R', 'اجاره'), ('S', 'فروش'))
-AD_CATEGORY_CHOICES = (('V', 'ویلایی'), ('A', 'آپارتمانی'))
+AD_CATEGORY_CHOICES = (
+    ('RESIDENTIAL', 'مسکونی'),
+    ('BUSINESS', 'تجاری'),
+    ('VILLA', 'ویلایی'),
+    ('REAL_ESTATE', 'املاک و مستغلات'),
+)
 
-USER_CONTACT_STATUS = (('WAITING', 'در انتظار بازدید'),
-                       ('VISIT', 'بازدید انجام شده است'))
+USER_CONTACT_STATUS = (('CLUE', 'سرنخ'),
+                       ('EVALUATED', 'ارزیابی شده'),
+                       ('INTRODUCED', 'معرفی شده'),
+                       ('SERVICED_PROVIDED', 'سرویس داده شده'),
+                       ('NEGOTIATED', 'مذاکره شده'),
+                       ('MEETING', 'جلسه گذاشته شد'),
+                       ('CONTRACTING', 'قرار داد بسته شد'),
+                       ('CANCELED', 'لغو شد'))
 
 
 EXPORT_USER_XLSX_CELL_FIELDS = ['id', 'is_superuser', 'username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined',

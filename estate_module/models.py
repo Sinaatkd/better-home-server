@@ -63,7 +63,7 @@ class Estate(BaseModel):
     floor = models.PositiveIntegerField(verbose_name='طبقه')
     estate_properties = models.ManyToManyField(EstateProperty, verbose_name='ویژگی ها', blank=True)
     meterage = models.PositiveIntegerField(verbose_name='متراژ')
-    category = models.CharField(choices=static_variables.AD_CATEGORY_CHOICES, max_length=9,
+    category = models.CharField(choices=static_variables.AD_CATEGORY_CHOICES, max_length=15,
                                 verbose_name='دسته بندی', null=True, blank=True)
     is_special = models.BooleanField(verbose_name='آگهی ویژه', default=False)
     images = models.ManyToManyField(EstateImage, verbose_name='تصاویر', blank=True)
