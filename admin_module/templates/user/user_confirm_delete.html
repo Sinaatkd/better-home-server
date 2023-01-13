@@ -1,0 +1,43 @@
+{% extends 'shared/main_layout_admin.html' %}
+
+{% block content_header %}
+<h1>تایید حذف</h1>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="row">
+        {% if object.is_consultant %}
+        <div class="col-12">
+            <form action="{% url 'move-consultant-estates-to-other-consultant' object.pk %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 mt-2">
+                        <p>انتقال فایل های مشتری</p>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mt-2">
+                        <select id="consultants" name="consultant" class="form-control" required>
+                            {% for consultant in consultants %}
+                            {% if consultant.pk != object.pk %}
+                            <option value="{{ consultant.pk }}">{{consultant.username}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mt-2">
+                        <input type="submit" value="انتقال بده" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        <div class="col-12" style="margin-top: 10px;">
+            <form class="mt-2" method="post">{% csrf_token %}
+                <div class="alert alert-warning">آیا از حذف کاربر "{{ object.username }}" مطمئن هستید؟</div>
+                <input type="submit" value="بله, حذف کن" class="btn btn-danger">
+                <a class="btn btn-default" href="{% url 'estates-list' %}">انصراف</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
