@@ -4,10 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 
 from .filters import EstateFilter
 from .serializers import (  EstateSerializer, EstateCreateUpdateSerializer,
-                            EstatePropertySerializer, EstateImageSerializer)
+                            EstatePropertySerializer, EstateImageSerializer,
+                            EstateRegionSerializer)
 from .permissions import IsConsultantUser, IsOwnerEstateAd
 
-from estate_module.models import Estate, EstateProperty, EstateImage
+from estate_module.models import Estate, EstateProperty, EstateImage, EstateRegion
 
 
 class EstatesViewSet(ModelViewSet):
@@ -41,3 +42,7 @@ class UploadEstateImageAPI(CreateAPIView):
     serializer_class = EstateImageSerializer
     queryset = EstateImage.objects.all()
     
+
+class GetEstateRegionsAPI(ListAPIView):
+    queryset = EstateRegion.objects.all()
+    serializer_class = EstateRegionSerializer

@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
-from estate_module.models import Estate, EstateProperty, EstateImage
+from estate_module.models import Estate, EstateProperty, EstateImage, EstateRegion
 
 
 User = get_user_model()
@@ -26,10 +26,18 @@ class ConsultantSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'phone_number')
 
+
+class EstateRegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstateRegion
+        exclude = ('is_delete', 'is_active', 'created_at', 'last_updated_time',)
+
+
 class EstateSerializer(serializers.ModelSerializer):
     images = EstateImageSerializer(many=True)
     estate_properties = EstatePropertySerializer(many=True)
     consultant = ConsultantSerializer()
+    region = serializers.StringRelatedField()
     is_favorite = serializers.SerializerMethodField('is_fav')
     
     class Meta:
@@ -39,7 +47,7 @@ class EstateSerializer(serializers.ModelSerializer):
     def is_fav(self, estate):
         user = self.context['request'].user
         if user.fav_of_users.filter(id=estate.id).exists():
-            return True 
+            return True
         return False
 
 class EstateCreateUpdateSerializer(serializers.ModelSerializer):

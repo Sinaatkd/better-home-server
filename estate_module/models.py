@@ -41,6 +41,17 @@ class EstateProperty(BaseModel):
 #         verbose_name_plural = "دسته بندی های ملک"
     
 
+class EstateRegion(BaseModel):
+    title = models.CharField(verbose_name='عنوان', max_length=300)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "منطقه"
+        verbose_name_plural = "منطقه ها"
+
+    
 class EstateImage(BaseModel):
     image = models.ImageField(upload_to=static_variables.ESTATE_IMAGE_UPLOAD_PATH, verbose_name='تصویر ملک')
     
@@ -75,6 +86,7 @@ class Estate(BaseModel):
     last_ladder_updated_time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ اپدیت نردبون', null=True, blank=True)
     build_date = models.PositiveIntegerField(verbose_name='سال ساخت', null=True, blank=True)
     fav_of_users = models.ManyToManyField(User, verbose_name='مورد علاقه', blank=True, related_name='fav_of_users')
+    region = models.ForeignKey(EstateRegion, on_delete=models.CASCADE, null=True, blank=True, verbose_name='منطقه')
     
     objects = EstateManager()
 
