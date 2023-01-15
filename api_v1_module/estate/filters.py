@@ -17,4 +17,4 @@ class EstateFilter(FilterSet):
         fields = ['is_special', 'ad_type', 'is_ladder', 'max_price',
                   'min_price', 'estate_properties', 'consultant',
                   'min_deposit', 'max_deposit', 'category', 'is_publish',
-                  'number_of_rooms', 'min_meterage', 'max_meterage']
+                  'number_of_rooms', 'min_meterage', 'max_meterage', 'region']
