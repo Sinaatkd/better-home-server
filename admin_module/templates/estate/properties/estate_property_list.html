@@ -32,7 +32,7 @@
                             {% for property in page_obj %}
                             <tr>
                                 <td>{{ property.pk }}</td>
-                                <td><a href="{% url 'estate-edit' property.pk %}">{{ property.title }}</a></td>
+                                <td><a href="{% url 'estate-property-update' property.pk %}">{{ property.title }}</a></td>
                                 <td><a href="{{ property.icon.url }}">برای مشاهده کلیک کنید</a></td>
                                 <td>{{ property.consultant }}
                                 <td><a href="{% url 'estate-property-delete' property.pk %}" class="btn btn-danger">حذف</a></td>

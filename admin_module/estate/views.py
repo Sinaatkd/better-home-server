@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 
 from estate_module.models import Estate, EstateProperty
 
-from .forms import CreateEstateForm, UpdateEstateForm
+from .forms import CreateEstateForm, UpdateEstateForm, CreateEstatePropertyForm, UpdateEstatePropertyForm
 
 class EstateListView(ListView):
     model = Estate
@@ -57,4 +57,19 @@ class EstatePropertyListView(ListView):
 class EstatePropertyDeleteView(DeleteView):
     model = EstateProperty
     template_name = 'estate/properties/estate_property_confirm_delete.html'
+    success_url = reverse_lazy('estate-property-list')
+
+
+class EstatePropertyCreateView(CreateView):
+    model = EstateProperty
+    form_class = CreateEstatePropertyForm
+    template_name = 'estate/properties/estate_property_form.html'
+    success_url = reverse_lazy('estate-property-list')
+
+
+
+class EstatePropertyUpdateView(UpdateView):
+    model = EstateProperty
+    form_class = UpdateEstatePropertyForm
+    template_name = 'estate/properties/estate_property_form.html'
     success_url = reverse_lazy('estate-property-list')
