@@ -2,7 +2,7 @@ from django.views.generic import ListView, DeleteView, CreateView, UpdateView
 
 from django.urls import reverse_lazy
 
-from estate_module.models import Estate
+from estate_module.models import Estate, EstateProperty
 
 from .forms import CreateEstateForm, UpdateEstateForm
 
@@ -39,3 +39,16 @@ class EstateUpdateView(UpdateView):
     template_name = 'estate/estate_form.html'
     success_url = reverse_lazy('estates-list')
 
+
+class EstatePropertyListView(ListView):
+    model = EstateProperty
+    template_name = 'estate/properties/estate_property_list.html'
+    paginate_by = 30
+
+
+    def get_queryset(self):
+        search = self.request.GET.get('search', '')
+        object_list = self.model.objects.all().order_by('-id')
+        if search:
+            object_list = self.model.objects.filter(title__icontains=search).distinct().order_by('-id')
+        return object_list

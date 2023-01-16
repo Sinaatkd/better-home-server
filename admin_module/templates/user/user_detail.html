@@ -256,15 +256,13 @@
                     <th>عنوان</th>
                     <th>آگهی</th>
                     <th>مقدار</th>
-                    <th>دستور</th>
                   </tr>
                   {% for income in user_incomes %}
                   <tr>
                     <td>{{ income.pk }}</td>
-                    <td><a href="{% url 'estate-edit' income.pk %}">{{ income.title }}</a></td>
+                    <td>{{ income.title }}  </td>
                     <td><a href="{% url 'estate-edit' income.estate.pk %}">{{ income.estate.title }}</a></td>
                     <td>{{ income.amount|floatformat:1|intcomma}}
-                    <td><a href="{% url 'estate-delete' income.pk %}" class="btn btn-danger">حذف</a></td>
                   </tr>
                   {% empty %}
                   <h4 class="text-center">درامدی پیدا نشد</h4>
