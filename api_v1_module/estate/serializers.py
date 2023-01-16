@@ -37,7 +37,7 @@ class EstateSerializer(serializers.ModelSerializer):
     images = EstateImageSerializer(many=True)
     estate_properties = EstatePropertySerializer(many=True)
     consultant = ConsultantSerializer()
-    region = serializers.StringRelatedField()
+    region = EstateRegionSerializer()
     is_favorite = serializers.SerializerMethodField('is_fav')
     
     class Meta:
