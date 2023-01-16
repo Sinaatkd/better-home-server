@@ -68,12 +68,22 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = kwargs
-        user_incomes = UserIncome.objects.filter(user_id=self.kwargs['pk'])
+        user_id = self.kwargs['pk']
+        
+        user_incomes = UserIncome.objects.filter(user_id=user_id)
+        context['user_incomes'] = user_incomes
+        
         sum_of_incomes, this_month_income, progress = calculate_income_general_stats(user_incomes)
         
         context['user_incomes_sum_of_incomes'] = sum_of_incomes
         context['user_incomes_this_month_income'] = this_month_income
         context['user_incomes_progress'] = progress
+
+        fav_estates = Estate.objects.filter(fav_of_users__in=[user_id])
+        context['fav_estates'] = fav_estates
+
+        estates = Estate.objects.filter(consultant_id=user_id)
+        context['estates'] = estates
         return context
     
 
