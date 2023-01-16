@@ -218,7 +218,7 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding mt-5">
-              <a class="btn btn-primary" href="">اضافه کردن مخاطب</a>
+              <a class="btn btn-primary" href="{% url 'user-contact-create' object.pk %}">اضافه کردن مخاطب</a>
               <table class="table table-hover" style="margin-top: 5px;">
                 <tbody>
                   <tr>
@@ -231,7 +231,6 @@
                   <tr>
                     <td>{{ contact.pk }}</td>
                     <td>{{ contact.customer_phone_number }}</td>
-                    <td>{{ contact.user }}</td>
                     <td>{{ contact.get_status_display }}</td>
                     <td>
                       <a class="btn btn-danger" href="{% url 'user-contact-delete' contact.pk %}">حذف کردن</a>

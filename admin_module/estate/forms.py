@@ -18,7 +18,7 @@ class CreateEstateForm(forms.ModelForm):
 
     class Meta:
         model = Estate
-        exclude = ('expire_date', 'images')
+        exclude = ('expire_date', 'images', 'fav_of_users')
 
 
 
@@ -35,4 +35,4 @@ class UpdateEstateForm(forms.ModelForm):
 
     class Meta:
         model = Estate
-        exclude = ('expire_date', 'images')
+        exclude = ('expire_date', 'images', 'fav_of_users')
