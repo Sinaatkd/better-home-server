@@ -52,3 +52,9 @@ class EstatePropertyListView(ListView):
         if search:
             object_list = self.model.objects.filter(title__icontains=search).distinct().order_by('-id')
         return object_list
+
+
+class EstatePropertyDeleteView(DeleteView):
+    model = EstateProperty
+    template_name = 'estate/properties/estate_property_confirm_delete.html'
+    success_url = reverse_lazy('estate-property-list')
