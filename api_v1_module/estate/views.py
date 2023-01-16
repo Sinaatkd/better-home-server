@@ -46,3 +46,21 @@ class UploadEstateImageAPI(CreateAPIView):
 class GetEstateRegionsAPI(ListAPIView):
     queryset = EstateRegion.objects.all()
     serializer_class = EstateRegionSerializer
+
+
+class GetSimilarEstates(ListAPIView):
+    serializer_class = EstateSerializer
+    
+    def get_queryset(self):
+        selected_estate_pk = self.kwargs.get('pk')
+        selected_estate = Estate.objects.filter(pk=selected_estate_pk).first()
+        if selected_estate is not None:
+            meterage_percent = selected_estate.meterage / 100 * 15
+            meterage_range = [selected_estate.meterage - meterage_percent, selected_estate.meterage + meterage_percent]
+
+            price_percent = selected_estate.price / 100 * 15
+            price_range = [selected_estate.price - price_percent, selected_estate.price + price_percent]
+
+            queryset = Estate.objects.filter(region=selected_estate.region, meterage__range=meterage_range, price__range=price_range)
+            return queryset
+        return []
