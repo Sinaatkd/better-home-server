@@ -1,0 +1,19 @@
+{% extends 'shared/main_layout_admin.html' %}
+
+{% block content_header %}
+<h1>تایید حذف</h1>
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <form method="post">{% csrf_token %}
+                <div class="alert alert-warning">آیا از حذف آگهی "{{ object.customer_phone_number }}" مطمئن هستید؟</div>
+                <input type="submit" value="بله, حذف کن" class="btn btn-danger">
+                <a class="btn btn-default" href="{{ request.META.HTTP_REFERER }}">انصراف</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

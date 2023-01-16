@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout-admin'),
     path('users/', include('admin_module.user.urls'), name='admin-user'),
     path('estates/', include('admin_module.estate.urls'), name='admin-estate'),
+    path('user-contacts/', include('admin_module.user_contact.urls'), name='admin-user-contact'),
 ]

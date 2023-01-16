@@ -70,7 +70,7 @@ class UserDetailView(DetailView):
         context = kwargs
         user_id = self.kwargs['pk']
         
-        user_incomes = UserIncome.objects.filter(user_id=user_id)
+        user_incomes = UserIncome.objects.filter(user_id=user_id).order_by('-id')
         context['user_incomes'] = user_incomes
         
         sum_of_incomes, this_month_income, progress = calculate_income_general_stats(user_incomes)
@@ -79,10 +79,13 @@ class UserDetailView(DetailView):
         context['user_incomes_this_month_income'] = this_month_income
         context['user_incomes_progress'] = progress
 
-        fav_estates = Estate.objects.filter(fav_of_users__in=[user_id])
+        fav_estates = Estate.objects.filter(fav_of_users__in=[user_id]).order_by('-id')
         context['fav_estates'] = fav_estates
 
-        estates = Estate.objects.filter(consultant_id=user_id)
+        user_contacts = UserContact.objects.filter(consultant_id=user_id).order_by('-id')
+        context['user_contacts'] = user_contacts
+
+        estates = Estate.objects.filter(consultant_id=user_id).order_by('-id')
         context['estates'] = estates
         return context
     
