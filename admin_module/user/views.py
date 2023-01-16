@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from openpyxl import Workbook
 
@@ -14,6 +14,8 @@ from .forms import CreateUserForm, UpdateUserForm, ChangeUserPasswordForm
 
 from estate_module.models import Estate
 from user_contact_module.models import UserContact
+from user_income_module.models import UserIncome
+from user_income_module.utils import calculate_income_general_stats
 
 User = get_user_model()
 
@@ -60,6 +62,20 @@ class UserUpdateView(UpdateView):
     template_name = 'user/user_form.html'
     success_url = reverse_lazy('users-list')
 
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'user/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = kwargs
+        user_incomes = UserIncome.objects.filter(user_id=self.kwargs['pk'])
+        sum_of_incomes, this_month_income, progress = calculate_income_general_stats(user_incomes)
+        
+        context['user_incomes_sum_of_incomes'] = sum_of_incomes
+        context['user_incomes_this_month_income'] = this_month_income
+        context['user_incomes_progress'] = progress
+        return context
+    
 
 class ChangeUserPasswordUpdateView(UpdateView):
     model = User

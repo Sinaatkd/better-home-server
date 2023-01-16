@@ -35,7 +35,7 @@
             <form class="mt-2" method="post">{% csrf_token %}
                 <div class="alert alert-warning">آیا از حذف کاربر "{{ object.username }}" مطمئن هستید؟</div>
                 <input type="submit" value="بله, حذف کن" class="btn btn-danger">
-                <a class="btn btn-default" href="{% url 'estates-list' %}">انصراف</a>
+                <a class="btn btn-default" href="{% url 'user-detail' object.pk %}">انصراف</a>
             </form>
         </div>
     </div>
