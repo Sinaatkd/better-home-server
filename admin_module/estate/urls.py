@@ -3,7 +3,7 @@ from django.urls import path
 
 from .views import (EstateListView, EstateDeleteView, EstateCreateView, EstatePropertyCreateView,
                     EstateUpdateView, EstatePropertyListView, EstatePropertyDeleteView, EstatePropertyUpdateView,
-                    EstateRegionListView, EstateRegionDeleteView)
+                    EstateRegionListView, EstateRegionDeleteView, EstateRegionCreateView)
 
 urlpatterns = [
     path('', EstateListView.as_view(), name='estates-list'),
@@ -18,5 +18,7 @@ urlpatterns = [
 
     path('regions/', EstateRegionListView.as_view(), name='estate-region-list'),
     path('regions/<pk>/delete/', EstateRegionDeleteView.as_view(), name='estate-region-delete'),
+    path('regions/new', EstateRegionCreateView.as_view(), name='estate-region-create'),
+
 
 ]
