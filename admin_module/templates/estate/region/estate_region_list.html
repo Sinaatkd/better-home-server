@@ -31,7 +31,7 @@
                             {% for region in page_obj %}
                             <tr>
                                 <td>{{ region.pk }}</td>
-                                <td><a href="{% url 'estate-property-update' region.pk %}">{{ region.title }}</a></td>
+                                <td><a href="{% url 'estate-region-update' region.pk %}">{{ region.title }}</a></td>
                                 <td><a href="{% url 'estate-region-delete' region.pk %}" class="btn btn-danger">حذف</a></td>
                             </tr>
                             {% empty %}

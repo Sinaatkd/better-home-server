@@ -100,3 +100,11 @@ class EstateRegionCreateView(CreateView):
     form_class = CreateUpdateEstateRegionForm
     template_name = 'estate/region/estate_region_form.html'
     success_url = reverse_lazy('estate-region-list')
+
+
+
+class EstateRegionUpdateView(UpdateView):
+    model = EstateRegion
+    form_class = CreateUpdateEstateRegionForm
+    template_name = 'estate/region/estate_region_form.html'
+    success_url = reverse_lazy('estate-region-list')
