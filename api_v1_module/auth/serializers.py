@@ -23,8 +23,8 @@ class SendVerificationCodeSerializer(serializers.Serializer):
         recipient_phone_number = validated_data['phone_number']
         sms = Client('ROZklaE5YPrNDmTRXZ0uBrKg9CYQiQ9kJP0ZP3wwkRE=')
         sms.send_pattern(
-            "73h4h7bhunyph6r",    # pattern code
-            "+985000125475",      # originator
+            "73h4h7bhunyph6r",# pattern code
+            "+9890003726",# originator
             f'+98{recipient_phone_number}',  # recipient
             {'verification_code': verification_code.code},  # pattern values
         )
