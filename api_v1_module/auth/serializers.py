@@ -4,6 +4,8 @@ from rest_framework import serializers
 from account_module.models import VerificationCode
 from account_module.utils import generate_token_for_user
 
+from ippanel import Client
+
 from ..account.serializers import UserSerializer
 
 
@@ -18,7 +20,14 @@ class SendVerificationCodeSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         verification_code = VerificationCode.objects.create_verification_code(user=self.user)
-        # TODO: send sms
+        recipient_phone_number = validated_data['phone_number']
+        sms = Client('ROZklaE5YPrNDmTRXZ0uBrKg9CYQiQ9kJP0ZP3wwkRE=')
+        sms.send_pattern(
+            "73h4h7bhunyph6r",    # pattern code
+            "+985000125475",      # originator
+            f'+98{recipient_phone_number}',  # recipient
+            {'verification_code': verification_code.code},  # pattern values
+        )
         validated_data['message'] = 'code sent'
         validated_data['status'] = 'ok'
         return validated_data
