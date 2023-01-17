@@ -2,7 +2,7 @@
 
 {% block content_header %}
 <h1>
-    ويژگی های ملک
+    منطقه ها
 </h1>
 {% endblock %}
 
@@ -26,18 +26,16 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>عنوان</th>
-                                <th>آدرس icon</th>
                                 <th>دستور</th>
                             </tr>
-                            {% for property in page_obj %}
+                            {% for region in page_obj %}
                             <tr>
-                                <td>{{ property.pk }}</td>
-                                <td><a href="{% url 'estate-property-update' property.pk %}">{{ property.title }}</a></td>
-                                <td><a href="{{ property.icon.url }}">برای مشاهده کلیک کنید</a></td>
-                                <td><a href="{% url 'estate-property-delete' property.pk %}" class="btn btn-danger">حذف</a></td>
+                                <td>{{ region.pk }}</td>
+                                <td><a href="{% url 'estate-property-update' region.pk %}">{{ region.title }}</a></td>
+                                <td><a href="{% url 'estate-property-delete' region.pk %}" class="btn btn-danger">حذف</a></td>
                             </tr>
                             {% empty %}
-                            <h4 class="text-center">ویژگی پیدا نشد</h4>
+                            <h4 class="text-center">منطقه پیدا نشد</h4>
                             {% endfor %}
                         </tbody>
                     </table>
