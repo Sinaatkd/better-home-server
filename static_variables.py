@@ -5,8 +5,10 @@ AD_TYPE_CHOICES = (('R', 'اجاره'), ('S', 'فروش'))
 AD_CATEGORY_CHOICES = (
     ('RESIDENTIAL', 'مسکونی'),
     ('BUSINESS', 'تجاری'),
+    ('OFFICIAL', 'اداری'),
     ('VILLA', 'ویلایی'),
-    ('REAL_ESTATE', 'املاک و مستغلات'),
+    ('KOLANGI', 'کلنگی'),
+    ('REAL_ESTATE', 'مستغلات'),
 )
 
 USER_CONTACT_STATUS = (('CLUE', 'سرنخ'),
