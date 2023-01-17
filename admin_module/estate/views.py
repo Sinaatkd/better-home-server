@@ -87,3 +87,9 @@ class EstateRegionListView(ListView):
         if search:
             object_list = self.model.objects.filter(title__icontains=search).distinct().order_by('-id')
         return object_list
+
+
+class EstateRegionDeleteView(DeleteView):
+    model = EstateRegion
+    template_name = 'estate/region/estate_region_confirm_delete.html'
+    success_url = reverse_lazy('estate-region-list')

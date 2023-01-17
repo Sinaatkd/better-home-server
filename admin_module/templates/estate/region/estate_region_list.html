@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ region.pk }}</td>
                                 <td><a href="{% url 'estate-property-update' region.pk %}">{{ region.title }}</a></td>
-                                <td><a href="{% url 'estate-property-delete' region.pk %}" class="btn btn-danger">حذف</a></td>
+                                <td><a href="{% url 'estate-region-delete' region.pk %}" class="btn btn-danger">حذف</a></td>
                             </tr>
                             {% empty %}
                             <h4 class="text-center">منطقه پیدا نشد</h4>
