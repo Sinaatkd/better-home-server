@@ -66,9 +66,23 @@
                 <b>قیمت</b> <a class="pull-left">{{ object.price }}</a>
             </li>
 
+
+            <li class="list-group-item">
+              <b>قابل تغییر</b> <a class="pull-left">{{ object.is_convertible }}</a>
+          </li>
+
+            <li class="list-group-item">
+              <b>قیمت تغییر یافته</b> <a class="pull-left">{{ object.price_converted }}</a>
+            </li>
+
             <li class="list-group-item">
                 <b>ودیعه</b> <a class="pull-left">{{ object.deposit }}</a>
             </li>
+
+
+            <li class="list-group-item">
+              <b>ودیعه تغییر یافته</b> <a class="pull-left">{{ object.deposit_converted }}</a>
+          </li>
 
         </ul>
 

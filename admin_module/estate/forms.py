@@ -8,7 +8,7 @@ from estate_module.models import Estate, EstateProperty, EstateRegion, EstateIma
 class CreateEstateForm(forms.ModelForm):
     field_order = ('title', 'latitude', 'longitude', 'consultant', 'number_of_rooms',
                     'floor', 'meterage', 'price', 'deposit', 'ad_type', 'build_date',
-                    'category', 'description', 'address', 'estate_properties')
+                    'category', 'description', 'address', 'estate_properties', 'price_converted', 'deposit_converted')
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,7 +23,7 @@ class CreateEstateForm(forms.ModelForm):
 class UpdateEstateForm(forms.ModelForm):
     field_order = ('title', 'latitude', 'longitude', 'consultant', 'number_of_rooms',
                     'floor', 'meterage', 'price', 'deposit', 'ad_type', 'build_date',
-                    'category', 'description', 'address', 'estate_properties')
+                    'category', 'description', 'address', 'estate_properties',  'price_converted', 'deposit_converted')
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
