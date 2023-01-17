@@ -1,10 +1,11 @@
 from django.views.generic import ListView, DeleteView, CreateView, UpdateView, DetailView
 
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 from estate_module.models import Estate, EstateProperty, EstateRegion, EstateImage
 
-from .forms import CreateEstateForm, UpdateEstateForm, CreateEstatePropertyForm, UpdateEstatePropertyForm, CreateUpdateEstateRegionForm
+from .forms import CreateEstateForm, UpdateEstateForm, CreateEstatePropertyForm, UpdateEstatePropertyForm, CreateUpdateEstateRegionForm, CreateUpdateEstateImageForm
 
 class EstateListView(ListView):
     model = Estate
@@ -116,8 +117,6 @@ class EstateRegionUpdateView(UpdateView):
     success_url = reverse_lazy('estate-region-list')
 
 
-
-
 class EstateImageDeleteView(DeleteView):
     model = EstateImage
     template_name = 'estate/image/estate_image_confirm_delete.html'
@@ -125,3 +124,17 @@ class EstateImageDeleteView(DeleteView):
     def get_success_url(self) -> str:
         estate_id = self.kwargs['estate_id']
         return reverse_lazy('estates-detail', args=(estate_id,))
+
+class EstateImageCreateView(CreateView):
+    model = EstateImage
+    form_class = CreateUpdateEstateImageForm
+    template_name = 'estate/image/estate_image_form.html'
+
+    def form_valid(self, form):
+        estate_id = self.kwargs['estate_id']
+        obj = form.save(commit=False)
+        obj.save()
+        selected_estate = Estate.objects.filter(pk=estate_id).first()
+        selected_estate.images.add(obj)
+        selected_estate.save()
+        return redirect(reverse_lazy('estates-detail', args=(estate_id,)))
