@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DeleteView, CreateView, UpdateView
+from django.views.generic import ListView, DeleteView, CreateView, UpdateView, DetailView
 
 from django.urls import reverse_lazy
 
@@ -24,6 +24,12 @@ class EstateDeleteView(DeleteView):
     model = Estate
     template_name = 'estate/estate_confirm_delete.html'
     success_url = reverse_lazy('estates-list')
+    
+
+
+class EstateDetailView(DetailView):
+    model = Estate
+    template_name = 'estate/estate_detail.html'
     
 
 class EstateCreateView(CreateView):

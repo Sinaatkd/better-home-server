@@ -1,14 +1,15 @@
 from django.urls import path
 
 
-from .views import (EstateListView, EstateDeleteView, EstateCreateView, EstatePropertyCreateView,
+from .views import (EstateListView, EstateDeleteView, EstateCreateView, EstatePropertyCreateView, EstateDetailView,
                     EstateUpdateView, EstatePropertyListView, EstatePropertyDeleteView, EstatePropertyUpdateView,
                     EstateRegionListView, EstateRegionDeleteView, EstateRegionCreateView, EstateRegionUpdateView)
 
 urlpatterns = [
     path('', EstateListView.as_view(), name='estates-list'),
-    path('<pk>/delete/', EstateDeleteView.as_view(), name='estate-delete'),
-    path('<pk>/edit/', EstateUpdateView.as_view(), name='estate-edit'),
+    path('<pk>/detail/', EstateDetailView.as_view(), name='estates-detail'),
+    path('<pk>/delete/', EstateDeleteView.as_view(), name='estates-delete'),
+    path('<pk>/edit/', EstateUpdateView.as_view(), name='estates-update'),
     path('new/', EstateCreateView.as_view(), name='create-estate'),
     
     path('properties/', EstatePropertyListView.as_view(), name='estate-property-list'),

@@ -1,0 +1,195 @@
+{% extends 'shared/main_layout_admin.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Profile Image -->
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <h3 class="profile-username text-center">{{ object.consultant }}</h3>
+
+          <p class="text-muted text-center">{{ object.description }}</p>
+
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>عنوان</b> <a class="pull-left">{{ object.title }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>آدرس</b> <a class="pull-left">{{ object.address }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>محله</b> <a class="pull-left">{{ object.region }}</a>
+            </li>
+            <li class="list-group-item">
+              <b>مختصات</b> <a class="pull-left">{{ object.latitude }} - {{ object.longitude }}</a>
+            </li>
+
+            <li class="list-group-item">
+                <b>نوع آگهی</b> <a class="pull-left">{{ object.get_ad_type_display }}</a>
+            </li>
+
+            <li class="list-group-item">
+                <b>نوع ملک</b> <a class="pull-left">{{ object.get_category_display }}</a>
+            </li>
+
+            
+            <li class="list-group-item">
+                <b>تعداد اتاق</b> <a class="pull-left">{{ object.number_of_rooms }}</a>
+            </li>
+
+            <li class="list-group-item">
+                <b>طبقه</b> <a class="pull-left">{{ object.floor }}</a>
+            </li>
+
+
+            <li class="list-group-item">
+                <b>متراژ</b> <a class="pull-left">{{ object.meterage }}</a>
+            </li>
+
+
+            <li class="list-group-item">
+                <b>آگهی ویژه</b> <a class="pull-left">{{ object.is_special }}</a>
+            </li>
+
+
+            <li class="list-group-item">
+                <b>آگهی نردبون</b> <a class="pull-left">{{ object.is_ladder }}</a>
+            </li>
+
+
+            <li class="list-group-item">
+                <b>قیمت</b> <a class="pull-left">{{ object.price }}</a>
+            </li>
+
+            <li class="list-group-item">
+                <b>ودیعه</b> <a class="pull-left">{{ object.deposit }}</a>
+            </li>
+
+        </ul>
+
+          <a href="{% url 'estates-update' object.pk %}" class="btn btn-primary btn-block"><b>ویرایش اطلاعات</b></a>
+          <a href="{% url 'estates-delete' object.pk %}" class="btn btn-danger btn-block"><b>حذف اطلاعات</b></a>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#favs" data-toggle="tab">مورد علاقه ها ({{ object.fav_of_users.all.count }})</a></li>
+          <li><a href="#properties" data-toggle="tab">ویژگی ({{object.estate_properties.all.count}})</a></li>
+          <li><a href="#images" data-toggle="tab">تصاویر ({{ object.images.all.count }})</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="favs">
+
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding mt-5">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>شناسه</th>
+                    <th>نام کاربری</th>
+                    <th>شماره تلفن</th>
+                    <th>مشاور</th>
+                    <th>ادمین</th>
+                    <th>مشاور</th>
+                  </tr>
+                  {% for fav_of_user in object.fav_of_users.all %}
+                  <tr>
+                    <td>{{ fav_of_user.pk }}</td>
+                    <td><a href="{% url 'user-detail' fav_of_user.pk %}">{{ fav_of_user.username }}</a></td>
+                    <td>{{ fav_of_user.phone_number }}</td>
+                    <td>{{ estate.consultant }}
+                    <td>
+                      {% if fav_of_user.is_superuser and fav_of_user.is_staff %}
+                      <span class="label label-success">ادمین</span>
+                      {% else %}
+                      <span class="label label-warning">عادی</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if fav_of_user.is_consultant %}
+                      <span class="label label-success">مشاور</span>
+                      {% else %}
+                      <span class="label label-warning">عادی</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <h4 class="text-center">پیدا نشد</h4>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <div class="tab-pane" id="properties">
+
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding mt-5">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>شناسه</th>
+                    <th>عنوان</th>
+                  </tr>
+                  {% for property in object.estate_properties.all %}
+                  <tr>
+                    <td>{{ property.pk }}</td>
+                    <td><a href="{% url 'estate-property-update' property.pk %}">{{ property.title }}</a></td>
+                  </tr>
+                  {% empty %}
+                  <h4 class="text-center">پیدا نشد</h4>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <div class="tab-pane" id="images">
+
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding mt-5">
+              <a class="btn btn-primary" href="{% url 'user-contact-create' object.pk %}">اضافه کردن تصویر</a>
+              <table class="table table-hover" style="margin-top: 5px;">
+                <tbody>
+                  <tr>
+                    <th>شناسه</th>
+                    <th>لینک</th>
+                    <th>دستور</th>
+                  </tr>
+                  {% for image in object.images.all %}
+                  <tr>
+                    <td>{{ image.pk }}</td>
+                    <td><a href="{{ image.image.url }}">برای مشاهده کلیک کنید</a></td>
+                    <td>
+                      <a class="btn btn-danger" >حذف کردن</a>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <h4 class="text-center">مخاطبی پیدا نشد</h4>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.tab-content -->
+      </div>
+      <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+
+</section>
+{% endblock %}

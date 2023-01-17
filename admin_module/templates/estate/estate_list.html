@@ -35,7 +35,7 @@
                             {% for estate in page_obj %}
                             <tr>
                                 <td>{{ estate.pk }}</td>
-                                <td><a href="{% url 'estate-edit' estate.pk %}">{{ estate.title }}</a></td>
+                                <td><a href="{% url 'estates-detail' estate.pk %}">{{ estate.title }}</a></td>
                                 <td>{{ estate.address }}</td>
                                 <td>{{ estate.consultant }}
                                 <td>
@@ -52,7 +52,7 @@
                                     <span class="label label-warning">عادی</span>
                                     {% endif %}
                                 </td>
-                                <td><a href="{% url 'estate-delete' estate.pk %}" class="btn btn-danger">حذف</a></td>
+                                <td><a href="{% url 'estates-delete' estate.pk %}" class="btn btn-danger">حذف</a></td>
                             </tr>
                             {% empty %}
                             <h4 class="text-center">آگهی پیدا نشد</h4>
