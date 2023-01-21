@@ -1,0 +1,12 @@
+{
+    "app": "better-home-server",
+    "disks": [
+        {
+            "name": "media",
+            "mountTo": "/usr/src/app/media"
+        }
+    ],
+    "cron": [
+        "0 0 * 1-12 * cd $ROOT && python3 manage.py update_consultant_quotas"
+    ]
+}

@@ -1,3 +1,4 @@
+import os
 import environ
 from datetime import timedelta
 
@@ -17,7 +18,7 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-y1t4t3&5+koipbpb38^*b#s-s1lggp*t&o$4%ypdwr-0$$#4w8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,11 +89,11 @@ WSGI_APPLICATION = 'better_home_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASS'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        'NAME': 'betterhomedb',
+        'USER': 'betterhomeuser',
+        'PASSWORD': 'betterhomepass',
+        'HOST': 'localhost',
+        'PORT': 3306,
     }
 }
 
@@ -129,14 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/usr/src/app/media'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'assets'
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -175,9 +174,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = [
-    "*",
-]
+
 
 LOGIN_URL = reverse_lazy('login-admin')
 LOGOUT_REDIRECT_URL = reverse_lazy('login-admin')
