@@ -7,6 +7,9 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.templatetags.static import static
+
+from PIL import Image
 
 from base_model_module.models import BaseModel
 from .managers import EstateManager
@@ -61,6 +64,36 @@ class EstateImage(BaseModel):
     class Meta:
         verbose_name = 'تصویر ملک'
         verbose_name_plural = 'تصویر های ملک'
+
+    #creating watermark for photo
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        src_path = self.image.path.split('better_home_api')
+        # opacity value
+        TRANSPARENCY = 100
+        
+        # original image
+        photo = Image.open(self.image.path)
+        width, height = photo.size
+
+        # open watermark image
+        watermark = Image.open(src_path[0] + 'better_home_api' + static('image-watermark.png'))
+        watermark_width, watermark_height = watermark.size 
+
+        # resize watermark image
+        watermark = watermark.resize((int(watermark_width / 2), int(watermark_height / 2)))
+        watermark_width, watermark_height = watermark.size 
+
+        # set position of watermark
+        margin = 10
+        x = width - watermark_width - margin
+        y = height - watermark_height - margin
+
+        # change opacity of watermark
+        paste_mask = watermark.split()[3].point(lambda i: i * TRANSPARENCY / 100.)
+        photo.paste(watermark, (x, y), mask=paste_mask)
+        photo.save(self.image.path)
 
 
 class Estate(BaseModel):
