@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.utils.timezone import now
 
 from rest_framework import serializers
 
 from estate_module.models import Estate, EstateProperty, EstateImage, EstateRegion
 
+from estate_module.utils import diff_between_two_dates
 
 User = get_user_model()
 
@@ -39,7 +41,9 @@ class EstateSerializer(serializers.ModelSerializer):
     consultant = ConsultantSerializer()
     region = EstateRegionSerializer()
     is_favorite = serializers.SerializerMethodField('is_fav')
-    
+    last_ladder_updated_time = serializers.SerializerMethodField()
+
+
     class Meta:
         model = Estate
         exclude = ('is_delete', 'created_at', 'last_updated_time', 'fav_of_users')
@@ -49,6 +53,26 @@ class EstateSerializer(serializers.ModelSerializer):
         if user.fav_of_users.filter(id=estate.id).exists():
             return True
         return False
+    
+    def get_last_ladder_updated_time(self, obj):
+        current = now()
+        last_ladder_updated_time = obj.last_ladder_updated_time
+        diff_dates = diff_between_two_dates(current, last_ladder_updated_time)
+        if 0 < diff_dates.days < 30:
+            return f'{diff_dates.days} روز پیش'
+        elif 30 <= diff_dates.days < 365:
+            return f'{int(diff_dates.days / 30)} ماه پیش'
+        elif diff_dates.days >= 365:
+            return f'{int(diff_dates.days / 365)} سال پیش'
+
+        diff_dates_minute = int(diff_dates.seconds / 60)
+        if 0 <= diff_dates_minute <= 5:
+            return 'لحظاتی پیش'
+        elif 5 < diff_dates_minute < 60:
+            return f'{diff_dates_minute} دقیقه پیش'
+        elif diff_dates_minute >= 60:
+            return f'{int(diff_dates_minute / 60)} ساعت پیش'
+
 
 class EstateCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
